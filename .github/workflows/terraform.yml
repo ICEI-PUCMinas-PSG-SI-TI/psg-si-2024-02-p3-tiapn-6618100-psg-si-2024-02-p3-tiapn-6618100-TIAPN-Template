@@ -1,0 +1,303 @@
+#name: "Terraform Workflow"
+#
+#on:
+#  workflow_call:
+#    inputs:
+#      infracost-token:
+#        type: string
+#        required: false
+#      environment:
+#        type: string
+#        required: false
+#        default: dev
+#      aws-account:
+#        type: string
+#        required: false
+#        default: 176343551411
+#      aws-region:
+#        type: string
+#        required: false
+#        default: us-east-1
+#      project-name:
+#        type: string
+#        required: false
+#        default: ${{ github.event.repository.name }}
+#    secrets:
+#      AWS_ACCOUNT:
+#        required: false
+#      AWS_REGION:
+#        required: false
+#      INFRACOST_API_KEY:
+#        required: false
+#
+#env:
+#  TF_LOG: INFO
+#  SSH_AUTH_SOCK: /tmp/ssh_agent.sock
+#
+#jobs:
+#  ###############################################
+#  ## VERIFICAR SE IRA INICIAR O TERRAFORM OU NAO
+#  ###############################################
+#  check-open-pull-request:
+#    runs-on: ubuntu-latest
+#    outputs:
+#      should_run_terraform: ${{ steps.set_output.outputs.should_run_terraform }}
+#    steps:
+#      - name: Checkout code
+#        uses: actions/checkout@v4
+#
+#      - name: Check if a Pull Request is Open
+#        id: check_pr
+#        run: |
+#          pr=$(gh pr list --state open --head "${{ github.ref_name }}" --json number --jq '.[0].number')
+#
+#          if [ -n "$pr" ]; then
+#            # Existe uma PR para este branch
+#            if [ "${{ github.event_name }}" == "pull_request" ]; then
+#              echo "should_run_terraform=true" >> $GITHUB_ENV
+#            else
+#              echo "should_run_terraform=false" >> $GITHUB_ENV
+#            fi
+#          else
+#            echo "should_run_terraform=true" >> $GITHUB_ENV
+#          fi
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#
+#      - name: Set Output
+#        id: set_output
+#        run: |
+#          echo "should_run_terraform=${{ env.should_run_terraform }}" >> $GITHUB_OUTPUT
+#
+#
+#
+#
+#  #############
+#  ## TERRAFORM
+#  #############
+#  terraform:
+#    runs-on: ubuntu-latest
+#    needs: check-open-pull-request
+#    if: ${{ needs.check-open-pull-request.outputs.should_run_terraform == 'true' }}
+#    outputs:
+#      fmt_outcome: ${{ steps.fmt.outcome }}
+#      init_outcome: ${{ steps.init.outcome }}
+#      validate_outcome: ${{ steps.validate.outcome }}
+#      plan_outcome: ${{ steps.plan.outcome }}
+#      validate_stdout: ${{ steps.validate.outputs.stdout }}
+#      plan_stdout: ${{ steps.plan.outputs.stdout }}
+#      destroy_outcome: ${{ steps.destroy.outcome }}
+#      destroy_stdout: ${{ steps.destroy.outputs.stdout }}
+#
+#    steps:
+#      - name: Checkout code
+#        uses: actions/checkout@v4
+#
+#      - name: Get repository creation date and creator
+#        run: |
+#          echo "REPO_CREATION_DATE=$(git log --reverse --format=%aI | head -n 1)" >> $GITHUB_ENV
+#          echo "REPO_CREATOR=$(git log --reverse --format='%aN' | head -n 1)" >> $GITHUB_ENV
+#
+#      - name: Setup Terraform
+#        uses: hashicorp/setup-terraform@v3
+#        with:
+#          terraform_version: 1.8.3
+#
+#      - name: Configure AWS credentials
+#        uses: aws-actions/configure-aws-credentials@v4
+#        with:
+#          role-to-assume: arn:aws:iam::${{ inputs.aws-account || secrets.AWS_ACCOUNT }}:role/github-actions-role-${{ github.repository_owner }}-${{ inputs.aws-region || secrets.AWS_REGION }}
+#          role-session-name: GitHub_to_AWS_via_FederatedOIDC
+#          aws-region: ${{ inputs.aws-region || secrets.AWS_REGION }}
+#
+#      - name: Read destroy configuration
+#        id: read-destroy-config
+#        run: |
+#          DESTROY="$(jq -r '.${{ inputs.environment }}' ./infra/destroy_config.json)"
+#          echo "destroy=$(echo $DESTROY)" >> $GITHUB_OUTPUT
+#
+#      - name: Terraform fmt
+#        id: fmt
+#        run: terraform fmt -check
+#        continue-on-error: true
+#
+#      - name: Set AWS S3 Bucket Name
+#        id: set-bucket
+#        run: |
+#          base_name="${{ inputs.aws-region || secrets.AWS_REGION }}-${{ github.repository_owner }}--tfstates"
+#          base_repo="${{ inputs.project-name }}"
+#
+#          base_name=$(echo "$base_name" | tr '[:upper:]' '[:lower:]')
+#          bucket_name=$(echo "$base_name" | sed -E 's/[^a-z0-9-]/-/g')
+#          bucket_name=$(echo "$bucket_name" | sed -E 's/^-+|-+$//g' | cut -c1-63)
+#
+#          echo "Bucket name: $bucket_name"
+#          echo "aws_statefile_s3_bucket=$bucket_name" >> $GITHUB_ENV
+#
+#          repo_name=$(echo "$base_repo" | sed -E 's/[^a-zA-Z0-9-]/-/g' | sed -E 's/^-+|-+$//g' | cut -c1-63)
+#
+#          echo "REPO name: $repo_name"
+#          echo "aws_statefile_repo_name=$repo_name" >> $GITHUB_ENV
+#
+#      - name: Terraform Init
+#        id: init
+#        run: |
+#          cd infra && terraform init \
+#            -backend-config="bucket=${{ env.aws_statefile_s3_bucket }}" \
+#            -backend-config="key=${{ github.event.repository.name }}" \
+#            -backend-config="region=${{ inputs.aws-region || secrets.AWS_REGION }}" \
+#            -backend-config="dynamodb_table=${{ github.repository_owner }}-${{ inputs.aws-region || secrets.AWS_REGION }}-terraform-lock"
+#
+#      - name: Terraform Validate
+#        id: validate
+#        run: terraform validate -no-color
+#
+#      - name: Terraform Destroy
+#        if: steps.read-destroy-config.outputs.destroy == 'true'
+#        id: destroy
+#        run: cd infra &&
+#          terraform workspace select ${{ inputs.environment }} || terraform workspace new ${{ inputs.environment }} &&
+#          terraform destroy -var-file="./envs/${{ inputs.environment }}/terraform.tfvars" -auto-approve -no-color
+#        env:
+#          TF_VAR_creation_date: ${{ env.REPO_CREATION_DATE }}
+#          TF_VAR_author: ${{ env.REPO_CREATOR }}
+#          TF_VAR_TagProject: "${{ env.aws_statefile_repo_name }}"
+#          TF_VAR_TagEnv: ${{ inputs.environment }}
+#          TF_VAR_aws_region: ${{ inputs.aws-region || secrets.AWS_REGION }}
+#
+#      - name: Terraform Plan
+#        if: steps.read-destroy-config.outputs.destroy != 'true'
+#        id: plan
+#        run: cd infra &&
+#          terraform workspace select ${{ inputs.environment }} || terraform workspace new ${{ inputs.environment }} &&
+#          terraform plan -var-file="./envs/${{ inputs.environment }}/terraform.tfvars" -out="${{ inputs.environment }}.plan" -no-color
+#        env:
+#          TF_VAR_creation_date: ${{ env.REPO_CREATION_DATE }}
+#          TF_VAR_author: ${{ env.REPO_CREATOR }}
+#          TF_VAR_TagProject: "${{ env.aws_statefile_repo_name }}"
+#          TF_VAR_TagEnv: ${{ inputs.environment }}
+#          TF_VAR_aws_region: ${{ inputs.aws-region || secrets.AWS_REGION }}
+#
+#      - name: Terraform Apply
+#        if: steps.read-destroy-config.outputs.destroy != 'true'
+#        id: apply
+#        run: cd infra &&
+#          terraform workspace select ${{ inputs.environment }} || terraform workspace new ${{ inputs.environment }} &&
+#          terraform apply "${{ inputs.environment }}.plan"
+#        env:
+#          TF_VAR_creation_date: ${{ env.REPO_CREATION_DATE }}
+#          TF_VAR_author: ${{ env.REPO_CREATOR }}
+#          TF_VAR_TagProject: "${{ env.aws_statefile_repo_name }}"
+#          TF_VAR_TagEnv: ${{ inputs.environment }}
+#          TF_VAR_aws_region: ${{ inputs.aws-region || secrets.AWS_REGION }}
+#
+#
+#  #####################
+#  ## CUSTOS DO PROJETO
+#  #####################
+#  cost-estimation:
+#    runs-on: ubuntu-latest
+#    if: ${{ github.event_name == 'pull_request' }}
+#    outputs:
+#      cost_summary_file: ${{ steps.save_output.outputs.cost_summary_file }}
+#      cost_status: ${{ steps.run_infracost.outcome }}
+#    steps:
+#      - name: Checkout code
+#        uses: actions/checkout@v4
+#
+#      - name: Setup Infracost
+#        uses: infracost/actions/setup@v3
+#
+#      - name: Config API-KEY
+#        run: infracost configure set api_key ${{ inputs.infracost-token || secrets.INFRACOST_API_KEY}}
+#
+#      - name: Fetch all history
+#        run: git fetch --unshallow
+#
+#      - name: Run Infracost Breakdown
+#        id: run_infracost
+#        run: |
+#          infracost breakdown --path . > infracost_output.txt
+#
+#      - name: Save Output File Path as a GitHub Actions Output
+#        id: save_output
+#        run: |
+#          echo "cost_summary_file=infracost_output.txt" >> $GITHUB_ENV
+#          echo "::set-output name=cost_summary_file::infracost_output.txt"
+#
+#      - name: Upload Infracost Output as Artifact
+#        uses: actions/upload-artifact@v3
+#        with:
+#          name: infracost-output
+#          path: infracost_output.txt
+#
+#
+#  ##############
+#  ## COMMENT PR
+#  ##############
+#  post-comment:
+#    runs-on: ubuntu-latest
+#    needs: [
+#      terraform,
+#      cost-estimation
+#    ]
+#    if: ${{ github.event_name == 'pull_request' }}
+#    steps:
+#      - name: Checkout code
+#        uses: actions/checkout@v4
+#
+#      - name: Download Infracost Output Artifact
+#        uses: actions/download-artifact@v3
+#        with:
+#          name: infracost-output
+#
+#      - name: Read Infracost Output
+#        id: read_infracost_output
+#        run: |
+#          infracost_output=$(cat infracost_output.txt)
+#          echo "output<<EOF" >> $GITHUB_ENV
+#          echo "$infracost_output" >> $GITHUB_ENV
+#          echo "EOF" >> $GITHUB_ENV
+#        shell: bash
+#
+#      - name: Post Comment on PR with CI/CD Results
+#        uses: actions/github-script@v6
+#        with:
+#          github-token: ${{ secrets.GITHUB_TOKEN }}
+#          script: |
+#            const fmtOutcome = `${{ needs.terraform.outputs.fmt_outcome }}`;
+#            const pr_exists = `${{ needs.check-open-pull-request.outputs.pr_exists }}`;
+#            const initOutcome = `${{ needs.terraform.outputs.init_outcome }}`;
+#            const validateOutcome = `${{ needs.terraform.outputs.validate_outcome }}`;
+#            const planOutcome = `${{ needs.terraform.outputs.plan_outcome }}`;
+#            const destroyOutcome = `${{ needs.terraform.outputs.destroy_outcome }}`;
+#            const validateOutput = `${{ needs.terraform.outputs.validate_stdout }}`;
+#            const planOutput = `${{ needs.terraform.outputs.plan_stdout }}`;
+#            const destroyOutput = `${{ needs.terraform.outputs.destroy_stdout }}`;
+#            const infracostOutput = process.env.output.trim();
+#            const infracostStatus = `${{ needs.cost-estimation.outputs.cost_status }}`;
+#
+#            let output = `#### Terraform Format and Style 🖌 \`${infracostStatus}\`\n`;
+#            output += `#### Terraform Initialization ⚙️ \`${initOutcome}\`\n`;
+#            output += `#### Terraform Validation 🤖 \`${validateOutcome}\`\n`;
+#            output += `<details><summary>✅ Validation Output</summary>\n\n\`\`\`shell\n${validateOutput}\n\`\`\`\n</details>\n\n`;
+#
+#            if (destroyOutcome == 'success') {
+#              output += `#### 💀 Terraform Destroy Results \`${destroyOutcome}\`\n`;
+#              output += `<details><summary>📄 Show Destroy Output</summary>\n\n\`\`\`shell\n${destroyOutput}\n\`\`\`\n</details>\n`;
+#            } else {
+#              output += `#### Terraform Plan 📖 \`${planOutcome}\`\n`;
+#              output += `<details><summary>📄 Show Plan Output</summary>\n\n\`\`\`shell\n${planOutput}\n\`\`\`\n</details>\n`;
+#            }
+#
+#            output += `\n#### Infracost Breakdown 💰 \`${infracostStatus}\`\n`;
+#            output += `<details><summary>📄 Show Infracost Output</summary>\n\n\`\`\`shell\n${infracostOutput}\n\`\`\`\n</details><br>\n`;
+#
+#            output += `\n*Pushed by: @${{ github.actor }}, Action: \`${{ github.event_name }}\`*`;
+#
+#            github.rest.issues.createComment({
+#              issue_number: context.issue.number,
+#              owner: context.repo.owner,
+#              repo: context.repo.repo,
+#              body: output
+#            })

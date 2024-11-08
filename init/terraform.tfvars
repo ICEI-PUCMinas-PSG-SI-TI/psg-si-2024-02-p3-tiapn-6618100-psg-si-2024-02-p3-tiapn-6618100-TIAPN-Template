@@ -1,0 +1,5 @@
+TagProject = "clave-de-sol"
+TagEnv     = "prod"
+github_acc = "ICEI-PUCMinas-PSG-SI-TI/psg-si-2024-02-p3-tiapn-6618100-clave-de-sol"
+aws_region = "us-east-1"
+updated_by = "AriHenrique"
