@@ -1,23 +1,32 @@
-# TÍTULO DO PROJETO
+# Fast Burger
 
 `CURSO`
 
+Sistemas de Informação
+
 `DISCIPLINA`
+
+Trabalho Interdisciplinar: Aplicações para Processos de Negócios
 
 `SEMESTRE`
 
-Descrever resumidamente, em um ou dois parágrafos, o projeto que está sendo desenvolvido.
+3°
+
+`RESUMO`
+
+FastBurger é um projeto que visa facilitar o processo de gerenciamento de pedidos e controle de estoque de hamburguerias, através do uso de uma aplicação web que, a partir de informações previamente cadastradas, fornece praticidade ao cliente na realização de seu pedido, além de uma visão ampla da situação atual do estoque do estabelecimento para seus empregados e responsáveis, o que ajuda nas tomadas de decisão e, consequentemente, favorece o crescimento financeiro.
 
 ## Integrantes
 
-* Nome completo do aluno 1
-* Nome completo do aluno 2
-* Nome completo do aluno 3
-* Nome completo do aluno 4
+* Henrique Luiz Fontes da Silva
+* Leonardo Leonhardt Bispo
+* Lucas Gabriel Pimenta Moreira 
+* Paulo Henrique Almeida Ferreira
+* Ricardo Alves Coelho
 
 ## Orientador
 
-* Nome completo do professor 1
+* Michelle Hanne Soares de Andrade
 
 ## Instruções de utilização
 
@@ -53,4 +62,3 @@ Assim que a primeira versão do sistema estiver disponível, deverá complementa
     * Implementação da funcionalidade X pertencente ao processo P.
 * 0.0.1
     * Trabalhando na modelagem do processo de negócio.
-
