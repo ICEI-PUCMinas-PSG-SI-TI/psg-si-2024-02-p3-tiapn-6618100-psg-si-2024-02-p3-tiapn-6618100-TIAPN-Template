@@ -106,7 +106,7 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: arn:aws:iam::${{ inputs.aws-account || secrets.AWS_ACCOUNT }}:role/github-actions-role-${{ github.repository_owner }}-${{ inputs.aws-region || secrets.AWS_REGION }}
+          role-to-assume: arn:aws:iam::${{ inputs.aws-account || secrets.AWS_ACCOUNT }}:role/github-actions-role-${{ inputs.project-name || github.repository_owner }}-${{ inputs.aws-region || secrets.AWS_REGION }}
           role-session-name: GitHub_to_AWS_via_FederatedOIDC
           aws-region: ${{ inputs.aws-region || secrets.AWS_REGION }}
 
@@ -124,7 +124,7 @@ jobs:
       - name: Set AWS S3 Bucket Name
         id: set-bucket
         run: |
-          base_name="${{ inputs.aws-region || secrets.AWS_REGION }}-${{ github.repository_owner }}--tfstates"
+          base_name="${{ inputs.aws-region || secrets.AWS_REGION }}-${{ inputs.project-name || github.repository_owner }}--tfstates"
           base_repo="${{ inputs.project-name }}"
 
           base_name=$(echo "$base_name" | tr '[:upper:]' '[:lower:]')
@@ -146,7 +146,7 @@ jobs:
             -backend-config="bucket=${{ env.aws_statefile_s3_bucket }}" \
             -backend-config="key=${{ github.event.repository.name }}" \
             -backend-config="region=${{ inputs.aws-region || secrets.AWS_REGION }}" \
-            -backend-config="dynamodb_table=${{ github.repository_owner }}-${{ inputs.aws-region || secrets.AWS_REGION }}-terraform-lock"
+            -backend-config="dynamodb_table=${{ inputs.project-name || github.repository_owner }}-${{ inputs.aws-region || secrets.AWS_REGION }}-terraform-lock"
 
       - name: Terraform Validate
         id: validate
