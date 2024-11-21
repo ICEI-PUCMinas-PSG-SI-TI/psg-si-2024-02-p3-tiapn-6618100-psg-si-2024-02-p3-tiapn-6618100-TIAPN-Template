@@ -8,7 +8,7 @@ module "api" {
   region = var.aws_region
   repository_name = "api-escola-musica"
   tags = local.common_tags
-  folder = "./src/back/EscolaMusica/EscolaMusica"
+  folder = "./src/back/EscolaMusica"
   files = [
     "Dockerfile"
   ]
