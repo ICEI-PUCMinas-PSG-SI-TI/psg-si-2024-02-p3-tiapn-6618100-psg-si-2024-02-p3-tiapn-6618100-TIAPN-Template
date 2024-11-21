@@ -18,3 +18,5 @@ jobs:
 
   terraform:
     uses: ./.github/workflows/terraform.yml
+    with:
+      project-name: clave-de-sol
