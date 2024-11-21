@@ -1,4 +1,4 @@
 *.terraform
-.idea
+*.idea
 *.terraform.lock.hcl
 push.sh
