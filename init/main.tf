@@ -44,7 +44,7 @@ resource "aws_s3_bucket_lifecycle_configuration" "lifecycle_landing" {
 # }
 
 resource "aws_iam_role" "github_actions_role" {
-  name = "github-actions-role-${var.TagProject}" #
+  name = "github-actions-role-${var.TagProject}-${var.aws_region}" #
   tags = local.tags
   assume_role_policy = jsonencode({
     Version = "2012-10-17",
