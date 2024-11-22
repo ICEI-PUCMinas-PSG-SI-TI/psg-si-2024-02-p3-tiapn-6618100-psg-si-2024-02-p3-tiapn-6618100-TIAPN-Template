@@ -1,23 +1,23 @@
-# TÍTULO DO PROJETO
+# ACADEMIA DE GINÁSTICA
 
-`CURSO`
+`SISTEMAS DE INFORMAÇÃO`
 
-`DISCIPLINA`
+`TRABALHO INTERDISCIPLINAR | APLICAÇÕES PARA PROCESSOS DE NEGÓCIOS`
 
-`SEMESTRE`
+`3° SEMESTRE`
 
-Descrever resumidamente, em um ou dois parágrafos, o projeto que está sendo desenvolvido.
+O projeto consiste em uma aplicação desktop
 
 ## Integrantes
 
-* Nome completo do aluno 1
-* Nome completo do aluno 2
-* Nome completo do aluno 3
-* Nome completo do aluno 4
+* Ana Beatriz Costa Viana
+* Gustavo de Assis Vilarino
+* Gustavo Henrique Silva de Oliveira
+* Karina Oliveira Bicalho de Almeida
 
 ## Orientador
 
-* Nome completo do professor 1
+* Michelle Hanne Soares de Andrade
 
 ## Instruções de utilização
 
