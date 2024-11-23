@@ -6,7 +6,7 @@
 
 `3° SEMESTRE`
 
-O projeto consiste em uma aplicação desktop
+O projeto consiste em uma aplicação desktop para auxiliar na administração de alunos de uma academia de ginástica.
 
 ## Integrantes
 
