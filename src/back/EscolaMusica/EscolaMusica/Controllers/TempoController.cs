@@ -22,18 +22,22 @@ namespace EscolaMusica.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<DimTempo>>> GetTempos()
         {
-            return await _context.DimTempos.ToListAsync();
+            return await _context.DimTempos
+                .AsNoTracking()
+                .ToListAsync();
         }
 
         // GET: api/Tempo/5
         [HttpGet("{id}")]
         public async Task<ActionResult<DimTempo>> GetTempo(int id)
         {
-            var tempo = await _context.DimTempos.FindAsync(id);
+            var tempo = await _context.DimTempos
+                .AsNoTracking()
+                .FirstOrDefaultAsync(t => t.codigo_tempo == id);
 
             if (tempo == null)
             {
-                return NotFound();
+                return NotFound(new { message = $"Registro de tempo com ID {id} não encontrado." });
             }
 
             return tempo;
@@ -45,7 +49,7 @@ namespace EscolaMusica.Controllers
         {
             if (id != tempo.codigo_tempo)
             {
-                return BadRequest();
+                return BadRequest(new { message = "O ID fornecido não corresponde ao ID do tempo." });
             }
 
             _context.Entry(tempo).State = EntityState.Modified;
@@ -58,7 +62,7 @@ namespace EscolaMusica.Controllers
             {
                 if (!TempoExists(id))
                 {
-                    return NotFound();
+                    return NotFound(new { message = $"Registro de tempo com ID {id} não encontrado para atualização." });
                 }
                 else
                 {
@@ -73,6 +77,12 @@ namespace EscolaMusica.Controllers
         [HttpPost]
         public async Task<ActionResult<DimTempo>> PostTempo(DimTempo tempo)
         {
+            // Validação adicional
+            if (tempo.data == default || tempo.ano <= 0 || tempo.mes <= 0 || tempo.dia <= 0)
+            {
+                return BadRequest(new { message = "Campos obrigatórios de data, ano, mês e dia devem ser preenchidos corretamente." });
+            }
+
             _context.DimTempos.Add(tempo);
             await _context.SaveChangesAsync();
 
@@ -86,7 +96,7 @@ namespace EscolaMusica.Controllers
             var tempo = await _context.DimTempos.FindAsync(id);
             if (tempo == null)
             {
-                return NotFound();
+                return NotFound(new { message = $"Registro de tempo com ID {id} não encontrado para exclusão." });
             }
 
             _context.DimTempos.Remove(tempo);
@@ -95,6 +105,7 @@ namespace EscolaMusica.Controllers
             return NoContent();
         }
 
+        // Método auxiliar para verificar existência
         private bool TempoExists(int id)
         {
             return _context.DimTempos.Any(e => e.codigo_tempo == id);

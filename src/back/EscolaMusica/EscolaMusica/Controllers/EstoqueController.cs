@@ -22,18 +22,24 @@ namespace EscolaMusica.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<DimEstoque>>> GetEstoques()
         {
-            return await _context.DimEstoques.ToListAsync();
+            return await _context.DimEstoques
+                .Include(e => e.instrumento) 
+                .AsNoTracking()
+                .ToListAsync();
         }
 
         // GET: api/Estoque/5
         [HttpGet("{id}")]
         public async Task<ActionResult<DimEstoque>> GetEstoque(int id)
         {
-            var estoque = await _context.DimEstoques.FindAsync(id);
+            var estoque = await _context.DimEstoques
+                .Include(e => e.instrumento)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(e => e.codigo_estoque == id);
 
             if (estoque == null)
             {
-                return NotFound();
+                return NotFound(new { message = $"Estoque com ID {id} não encontrado." });
             }
 
             return estoque;
@@ -45,7 +51,7 @@ namespace EscolaMusica.Controllers
         {
             if (id != estoque.codigo_estoque)
             {
-                return BadRequest();
+                return BadRequest(new { message = "O ID fornecido não corresponde ao ID do estoque." });
             }
 
             _context.Entry(estoque).State = EntityState.Modified;
@@ -58,7 +64,7 @@ namespace EscolaMusica.Controllers
             {
                 if (!EstoqueExists(id))
                 {
-                    return NotFound();
+                    return NotFound(new { message = $"Estoque com ID {id} não encontrado para atualização." });
                 }
                 else
                 {
@@ -73,6 +79,12 @@ namespace EscolaMusica.Controllers
         [HttpPost]
         public async Task<ActionResult<DimEstoque>> PostEstoque(DimEstoque estoque)
         {
+            // Validação adicional para estoque
+            if (estoque.codigo_instrumento <= 0)
+            {
+                return BadRequest(new { message = "Instrumento válido é obrigatório." });
+            }
+
             _context.DimEstoques.Add(estoque);
             await _context.SaveChangesAsync();
 
@@ -86,7 +98,7 @@ namespace EscolaMusica.Controllers
             var estoque = await _context.DimEstoques.FindAsync(id);
             if (estoque == null)
             {
-                return NotFound();
+                return NotFound(new { message = $"Estoque com ID {id} não encontrado para exclusão." });
             }
 
             _context.DimEstoques.Remove(estoque);
@@ -95,6 +107,7 @@ namespace EscolaMusica.Controllers
             return NoContent();
         }
 
+        // Método auxiliar para verificar existência
         private bool EstoqueExists(int id)
         {
             return _context.DimEstoques.Any(e => e.codigo_estoque == id);

@@ -22,18 +22,18 @@ namespace EscolaMusica.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<DimAluno>>> GetAlunos()
         {
-            return await _context.DimAlunos.ToListAsync();
+            return await _context.DimAlunos.AsNoTracking().ToListAsync();
         }
 
         // GET: api/Aluno/5
         [HttpGet("{id}")]
         public async Task<ActionResult<DimAluno>> GetAluno(int id)
         {
-            var aluno = await _context.DimAlunos.FindAsync(id);
+            var aluno = await _context.DimAlunos.AsNoTracking().FirstOrDefaultAsync(a => a.codigo_aluno == id);
 
             if (aluno == null)
             {
-                return NotFound();
+                return NotFound(new { message = $"Aluno com ID {id} não encontrado." });
             }
 
             return aluno;
@@ -45,7 +45,7 @@ namespace EscolaMusica.Controllers
         {
             if (id != aluno.codigo_aluno)
             {
-                return BadRequest();
+                return BadRequest(new { message = "O ID fornecido não corresponde ao ID do aluno." });
             }
 
             _context.Entry(aluno).State = EntityState.Modified;
@@ -58,7 +58,7 @@ namespace EscolaMusica.Controllers
             {
                 if (!AlunoExists(id))
                 {
-                    return NotFound();
+                    return NotFound(new { message = $"Aluno com ID {id} não encontrado para atualização." });
                 }
                 else
                 {
@@ -73,6 +73,12 @@ namespace EscolaMusica.Controllers
         [HttpPost]
         public async Task<ActionResult<DimAluno>> PostAluno(DimAluno aluno)
         {
+            // Validações adicionais antes de salvar
+            if (string.IsNullOrEmpty(aluno.nome) || string.IsNullOrEmpty(aluno.matricula))
+            {
+                return BadRequest(new { message = "Os campos 'Nome' e 'Matrícula' são obrigatórios." });
+            }
+
             _context.DimAlunos.Add(aluno);
             await _context.SaveChangesAsync();
 
@@ -86,7 +92,7 @@ namespace EscolaMusica.Controllers
             var aluno = await _context.DimAlunos.FindAsync(id);
             if (aluno == null)
             {
-                return NotFound();
+                return NotFound(new { message = $"Aluno com ID {id} não encontrado para exclusão." });
             }
 
             _context.DimAlunos.Remove(aluno);
@@ -95,6 +101,7 @@ namespace EscolaMusica.Controllers
             return NoContent();
         }
 
+        // Método auxiliar para verificar existência
         private bool AlunoExists(int id)
         {
             return _context.DimAlunos.Any(e => e.codigo_aluno == id);

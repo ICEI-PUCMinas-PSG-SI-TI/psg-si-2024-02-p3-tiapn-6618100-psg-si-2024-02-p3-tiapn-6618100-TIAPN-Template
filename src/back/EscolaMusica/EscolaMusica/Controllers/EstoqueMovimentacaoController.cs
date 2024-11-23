@@ -22,18 +22,28 @@ namespace EscolaMusica.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<FatoEstoqueMovimentacao>>> GetEstoqueMovimentacoes()
         {
-            return await _context.FatoEstoquesMovimentacao.ToListAsync();
+            return await _context.FatoEstoquesMovimentacao
+                .Include(f => f.estoque) // DimEstoque
+                .Include(f => f.tempo) // DimTempo
+                .Include(f => f.administrador) // DimAdministrador
+                .AsNoTracking()
+                .ToListAsync();
         }
 
         // GET: api/EstoqueMovimentacao/5
         [HttpGet("{id}")]
         public async Task<ActionResult<FatoEstoqueMovimentacao>> GetEstoqueMovimentacao(int id)
         {
-            var movimentacao = await _context.FatoEstoquesMovimentacao.FindAsync(id);
+            var movimentacao = await _context.FatoEstoquesMovimentacao
+                .Include(m => m.estoque)
+                .Include(m => m.tempo)
+                .Include(m => m.administrador)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(m => m.codigo_movimentacao == id);
 
             if (movimentacao == null)
             {
-                return NotFound();
+                return NotFound(new { message = $"Movimentação com ID {id} não encontrada." });
             }
 
             return movimentacao;
@@ -45,7 +55,7 @@ namespace EscolaMusica.Controllers
         {
             if (id != movimentacao.codigo_movimentacao)
             {
-                return BadRequest();
+                return BadRequest(new { message = "O ID fornecido não corresponde ao ID da movimentação." });
             }
 
             _context.Entry(movimentacao).State = EntityState.Modified;
@@ -58,7 +68,7 @@ namespace EscolaMusica.Controllers
             {
                 if (!EstoqueMovimentacaoExists(id))
                 {
-                    return NotFound();
+                    return NotFound(new { message = $"Movimentação com ID {id} não encontrada para atualização." });
                 }
                 else
                 {
@@ -73,6 +83,12 @@ namespace EscolaMusica.Controllers
         [HttpPost]
         public async Task<ActionResult<FatoEstoqueMovimentacao>> PostEstoqueMovimentacao(FatoEstoqueMovimentacao movimentacao)
         {
+            // Validação adicional
+            if (movimentacao.codigo_estoque <= 0 || movimentacao.codigo_tempo <= 0 || movimentacao.quantidade <= 0)
+            {
+                return BadRequest(new { message = "Os campos de Estoque, Tempo e Quantidade são obrigatórios e devem ser válidos." });
+            }
+
             _context.FatoEstoquesMovimentacao.Add(movimentacao);
             await _context.SaveChangesAsync();
 
@@ -86,7 +102,7 @@ namespace EscolaMusica.Controllers
             var movimentacao = await _context.FatoEstoquesMovimentacao.FindAsync(id);
             if (movimentacao == null)
             {
-                return NotFound();
+                return NotFound(new { message = $"Movimentação com ID {id} não encontrada para exclusão." });
             }
 
             _context.FatoEstoquesMovimentacao.Remove(movimentacao);
@@ -95,6 +111,7 @@ namespace EscolaMusica.Controllers
             return NoContent();
         }
 
+        // Método auxiliar para verificar existência
         private bool EstoqueMovimentacaoExists(int id)
         {
             return _context.FatoEstoquesMovimentacao.Any(e => e.codigo_movimentacao == id);

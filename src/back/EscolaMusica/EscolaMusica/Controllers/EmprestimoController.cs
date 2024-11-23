@@ -22,18 +22,32 @@ namespace EscolaMusica.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<FatoEmprestimo>>> GetEmprestimos()
         {
-            return await _context.FatoEmprestimos.ToListAsync();
+            return await _context.FatoEmprestimos
+                .Include(e => e.instrumento)
+                .Include(e => e.aluno)
+                .Include(e => e.tempoEmprestimo)
+                .Include(e => e.tempoDevolucao)
+                .Include(e => e.administrador) 
+                .AsNoTracking()
+                .ToListAsync();
         }
 
         // GET: api/Emprestimo/5
         [HttpGet("{id}")]
         public async Task<ActionResult<FatoEmprestimo>> GetEmprestimo(int id)
         {
-            var emprestimo = await _context.FatoEmprestimos.FindAsync(id);
+            var emprestimo = await _context.FatoEmprestimos
+                .Include(e => e.instrumento)
+                .Include(e => e.aluno)
+                .Include(e => e.tempoEmprestimo)
+                .Include(e => e.tempoDevolucao)
+                .Include(e => e.administrador)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(e => e.codigo_emprestimo == id);
 
             if (emprestimo == null)
             {
-                return NotFound();
+                return NotFound(new { message = $"Empréstimo com ID {id} não encontrado." });
             }
 
             return emprestimo;
@@ -45,7 +59,15 @@ namespace EscolaMusica.Controllers
         {
             if (id != emprestimo.codigo_emprestimo)
             {
-                return BadRequest();
+                return BadRequest(new { message = "O ID fornecido não corresponde ao ID do empréstimo." });
+            }
+
+            // Verifica se as entidades relacionadas existem
+            if (!await InstrumentoExists(emprestimo.codigo_instrumento) ||
+                !await AlunoExists(emprestimo.codigo_aluno) ||
+                !await TempoExists(emprestimo.codigo_tempo_emprestimo))
+            {
+                return BadRequest(new { message = "Instrumento, Aluno ou Tempo de Empréstimo inválido." });
             }
 
             _context.Entry(emprestimo).State = EntityState.Modified;
@@ -58,7 +80,7 @@ namespace EscolaMusica.Controllers
             {
                 if (!EmprestimoExists(id))
                 {
-                    return NotFound();
+                    return NotFound(new { message = $"Empréstimo com ID {id} não encontrado para atualização." });
                 }
                 else
                 {
@@ -73,6 +95,20 @@ namespace EscolaMusica.Controllers
         [HttpPost]
         public async Task<ActionResult<FatoEmprestimo>> PostEmprestimo(FatoEmprestimo emprestimo)
         {
+            // Validações adicionais para evitar dados inválidos
+            if (emprestimo.codigo_instrumento <= 0 || emprestimo.codigo_aluno <= 0 || emprestimo.codigo_tempo_emprestimo <= 0)
+            {
+                return BadRequest(new { message = "Os campos de Instrumento, Aluno e Tempo de Empréstimo são obrigatórios e devem ser válidos." });
+            }
+
+            // Verifica se as entidades relacionadas existem
+            if (!await InstrumentoExists(emprestimo.codigo_instrumento) ||
+                !await AlunoExists(emprestimo.codigo_aluno) ||
+                !await TempoExists(emprestimo.codigo_tempo_emprestimo))
+            {
+                return BadRequest(new { message = "Instrumento, Aluno ou Tempo de Empréstimo inválido." });
+            }
+
             _context.FatoEmprestimos.Add(emprestimo);
             await _context.SaveChangesAsync();
 
@@ -86,7 +122,7 @@ namespace EscolaMusica.Controllers
             var emprestimo = await _context.FatoEmprestimos.FindAsync(id);
             if (emprestimo == null)
             {
-                return NotFound();
+                return NotFound(new { message = $"Empréstimo com ID {id} não encontrado para exclusão." });
             }
 
             _context.FatoEmprestimos.Remove(emprestimo);
@@ -95,9 +131,28 @@ namespace EscolaMusica.Controllers
             return NoContent();
         }
 
+        // Verifica se um empréstimo existe
         private bool EmprestimoExists(int id)
         {
             return _context.FatoEmprestimos.Any(e => e.codigo_emprestimo == id);
+        }
+
+        // Verifica se um instrumento existe
+        private async Task<bool> InstrumentoExists(int id)
+        {
+            return await _context.DimInstrumentos.AnyAsync(i => i.codigo_instrumento == id);
+        }
+
+        // Verifica se um aluno existe
+        private async Task<bool> AlunoExists(int id)
+        {
+            return await _context.DimAlunos.AnyAsync(a => a.codigo_aluno == id);
+        }
+
+        // Verifica se um tempo existe
+        private async Task<bool> TempoExists(int id)
+        {
+            return await _context.DimTempos.AnyAsync(t => t.codigo_tempo == id);
         }
     }
 }

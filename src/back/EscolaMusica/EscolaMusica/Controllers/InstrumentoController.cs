@@ -22,18 +22,22 @@ namespace EscolaMusica.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<DimInstrumento>>> GetInstrumentos()
         {
-            return await _context.DimInstrumentos.ToListAsync();
+            return await _context.DimInstrumentos
+                .AsNoTracking()
+                .ToListAsync();
         }
 
         // GET: api/Instrumento/5
         [HttpGet("{id}")]
         public async Task<ActionResult<DimInstrumento>> GetInstrumento(int id)
         {
-            var instrumento = await _context.DimInstrumentos.FindAsync(id);
+            var instrumento = await _context.DimInstrumentos
+                .AsNoTracking()
+                .FirstOrDefaultAsync(i => i.codigo_instrumento == id);
 
             if (instrumento == null)
             {
-                return NotFound();
+                return NotFound(new { message = $"Instrumento com ID {id} não encontrado." });
             }
 
             return instrumento;
@@ -45,7 +49,7 @@ namespace EscolaMusica.Controllers
         {
             if (id != instrumento.codigo_instrumento)
             {
-                return BadRequest();
+                return BadRequest(new { message = "O ID fornecido não corresponde ao ID do instrumento." });
             }
 
             _context.Entry(instrumento).State = EntityState.Modified;
@@ -58,7 +62,7 @@ namespace EscolaMusica.Controllers
             {
                 if (!InstrumentoExists(id))
                 {
-                    return NotFound();
+                    return NotFound(new { message = $"Instrumento com ID {id} não encontrado para atualização." });
                 }
                 else
                 {
@@ -73,6 +77,12 @@ namespace EscolaMusica.Controllers
         [HttpPost]
         public async Task<ActionResult<DimInstrumento>> PostInstrumento(DimInstrumento instrumento)
         {
+            // Validações adicionais
+            if (string.IsNullOrEmpty(instrumento.nome) || string.IsNullOrEmpty(instrumento.tipo))
+            {
+                return BadRequest(new { message = "Os campos 'Nome' e 'Tipo' são obrigatórios." });
+            }
+
             _context.DimInstrumentos.Add(instrumento);
             await _context.SaveChangesAsync();
 
@@ -86,7 +96,7 @@ namespace EscolaMusica.Controllers
             var instrumento = await _context.DimInstrumentos.FindAsync(id);
             if (instrumento == null)
             {
-                return NotFound();
+                return NotFound(new { message = $"Instrumento com ID {id} não encontrado para exclusão." });
             }
 
             _context.DimInstrumentos.Remove(instrumento);
@@ -95,6 +105,7 @@ namespace EscolaMusica.Controllers
             return NoContent();
         }
 
+        // Método auxiliar para verificar existência
         private bool InstrumentoExists(int id)
         {
             return _context.DimInstrumentos.Any(e => e.codigo_instrumento == id);

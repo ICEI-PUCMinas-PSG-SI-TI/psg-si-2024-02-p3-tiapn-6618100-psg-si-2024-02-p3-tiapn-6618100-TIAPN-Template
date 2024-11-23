@@ -1,213 +1,193 @@
-﻿
--- Dim_Instrumento
-CREATE TABLE Dim_Instrumento
+﻿create table if not exists public.dim_instrumento
 (
-    Codigo_Instrumento SERIAL PRIMARY KEY,
-    Nome               VARCHAR(100) NOT NULL,
-    Tipo               VARCHAR(50)  NOT NULL
+    codigo_instrumento serial
+        primary key,
+    nome               varchar(100) not null,
+    tipo               varchar(50)  not null,
+    categoria          varchar(50),
+    condicao           varchar(50)
 );
 
--- Dim_Aluno
-CREATE TABLE Dim_Aluno
+alter table public.dim_instrumento
+    owner to puc_aws;
+
+create table if not exists public.dim_aluno
 (
-    Codigo_Aluno SERIAL PRIMARY KEY,
-    Nome         VARCHAR(100) NOT NULL,
-    Matricula    VARCHAR(50)  NOT NULL,
-    Endereco     VARCHAR(255)
+    codigo_aluno serial
+        primary key,
+    nome         varchar(100) not null,
+    matricula    varchar(50)  not null,
+    rua          varchar(255) not null,
+    bairro       varchar(100) not null,
+    numero       varchar(10)  not null,
+    cep          varchar(15)  not null,
+    telefone     varchar(15),
+    email        varchar(100)
 );
 
--- Dim_Tempo
-CREATE TABLE Dim_Tempo
+alter table public.dim_aluno
+    owner to puc_aws;
+
+create table if not exists public.dim_tempo
 (
-    Codigo_Tempo SERIAL PRIMARY KEY,
-    Data         DATE        NOT NULL,
-    Ano          INT         NOT NULL,
-    Mes          INT         NOT NULL,
-    Dia          INT         NOT NULL,
-    Dia_Semana   VARCHAR(20) NOT NULL
+    codigo_tempo serial
+        primary key,
+    data         date        not null,
+    ano          integer     not null,
+    mes          integer     not null,
+    dia          integer     not null,
+    dia_semana   varchar(20) not null
 );
 
--- Dim_Administrador
-CREATE TABLE Dim_Administrador
+alter table public.dim_tempo
+    owner to puc_aws;
+
+create table if not exists public.dim_administrador
 (
-    Codigo_Administrador SERIAL PRIMARY KEY,
-    Nome                 VARCHAR(100) NOT NULL,
-    Contato              VARCHAR(100),
-    Tipo                 VARCHAR(50)  NOT NULL
+    codigo_administrador serial
+        primary key,
+    nome                 varchar(100) not null,
+    contato              varchar(100),
+    tipo                 varchar(50)  not null
 );
 
--- Dim_Professor
-CREATE TABLE Dim_Professor
+alter table public.dim_administrador
+    owner to puc_aws;
+
+create table if not exists public.dim_professor
 (
-    Codigo_Professor SERIAL PRIMARY KEY,
-    Nome             VARCHAR(100) NOT NULL,
-    Contato          VARCHAR(100),
-    Habilidades      VARCHAR(255)
+    codigo_professor serial
+        primary key,
+    nome             varchar(100) not null,
+    contato          varchar(100),
+    habilidades      varchar(255)
 );
 
--- Dim_Turma
-CREATE TABLE Dim_Turma
+alter table public.dim_professor
+    owner to puc_aws;
+
+create table if not exists public.dim_turma
 (
-    Codigo_Turma SERIAL PRIMARY KEY,
-    Nome         VARCHAR(100) NOT NULL,
-    Sala         INT          NOT NULL,
-    Horario      TIME         NOT NULL
+    codigo_turma serial
+        primary key,
+    nome         varchar(100) not null,
+    sala         integer      not null,
+    nivel        varchar(50),
+    duracao      time         not null,
+    numero_vagas integer
 );
 
--- Dim_Estoque
-CREATE TABLE Dim_Estoque
+alter table public.dim_turma
+    owner to puc_aws;
+
+create table if not exists public.dim_estoque
 (
-    Codigo_Estoque SERIAL PRIMARY KEY,
-    Localizacao    VARCHAR(255),
-    Quantidade     INT
+    codigo_estoque     serial
+        primary key,
+    localizacao        varchar(255),
+    codigo_instrumento integer not null
+        references public.dim_instrumento
 );
 
--- Fatos
+alter table public.dim_estoque
+    owner to puc_aws;
 
--- Fato_Emprestimo
-CREATE TABLE Fato_Emprestimo
+create table if not exists public.dim_pagamento
 (
-    Codigo_Emprestimo       SERIAL PRIMARY KEY,
-    Codigo_Instrumento      INT         NOT NULL,
-    Codigo_Aluno            INT         NOT NULL,
-    Codigo_Tempo_Emprestimo INT         NOT NULL,
-    Codigo_Tempo_Devolucao  INT,
-    Codigo_Administrador    INT         NOT NULL,
-    Tipo_Administrador      VARCHAR(50) NOT NULL,
-    Status                  VARCHAR(50),
-    Descricao               VARCHAR(255)
-);
--- Fato_AgendamentoAula
-CREATE TABLE Fato_AgendamentoAula
-(
-    Codigo_Agendamento   SERIAL PRIMARY KEY,
-    Codigo_Turma         INT         NOT NULL,
-    Codigo_Professor     INT         NOT NULL,
-    Codigo_Tempo         INT         NOT NULL,
-    Codigo_Administrador INT         NOT NULL,
-    Tipo_Administrador   VARCHAR(50) NOT NULL,
-    Descricao            VARCHAR(255)
+    codigo_pagamento serial
+        primary key,
+    tipo             varchar(50) not null,
+    nome_cartao      varchar(100),
+    numero_cartao    varchar(20),
+    validade         varchar(7),
+    codigo_seguranca varchar(5),
+    status           varchar(50)
 );
 
--- Fato_Matricula
-CREATE TABLE Fato_Matricula
+alter table public.dim_pagamento
+    owner to puc_aws;
+
+create table if not exists public.dim_horario
 (
-    Codigo_Matricula     SERIAL PRIMARY KEY,
-    Codigo_Aluno         INT         NOT NULL,
-    Codigo_Turma         INT         NOT NULL,
-    Codigo_Administrador INT         NOT NULL,
-    Tipo_Administrador   VARCHAR(50) NOT NULL,
-    Data_Inicio          DATE        NOT NULL,
-    Status               VARCHAR(50) NOT NULL
+    codigo_horario serial
+        primary key,
+    dia_semana     varchar(20) not null,
+    horario        time        not null
 );
 
--- Fato_EstoqueMovimentacao
-CREATE TABLE Fato_EstoqueMovimentacao
+alter table public.dim_horario
+    owner to puc_aws;
+
+create table if not exists public.fato_matricula
 (
-    Codigo_Movimentacao  SERIAL PRIMARY KEY,
-    Codigo_Estoque       INT         NOT NULL,
-    Codigo_Tempo         INT         NOT NULL,
-    Codigo_Administrador INT         NOT NULL,
-    Tipo_Administrador   VARCHAR(50) NOT NULL,
-    Tipo_Movimentacao    VARCHAR(50) NOT NULL,
-    Quantidade           INT         NOT NULL
+    codigo_matricula     serial
+        primary key,
+    codigo_aluno         integer     not null
+        references public.dim_aluno,
+    codigo_turma         integer     not null
+        references public.dim_turma,
+    codigo_pagamento     integer     not null
+        references public.dim_pagamento,
+    codigo_administrador integer     not null
+        references public.dim_administrador,
+    data_inicio          date        not null,
+    status               varchar(50) not null
 );
 
--- Alterações para adicionar chaves estrangeiras
+alter table public.fato_matricula
+    owner to puc_aws;
 
--- Fato_Emprestimo
-ALTER TABLE Fato_Emprestimo
-    ADD CONSTRAINT FK_Emprestimo_Instrumento FOREIGN KEY (Codigo_Instrumento) REFERENCES Dim_Instrumento (Codigo_Instrumento),
-    ADD CONSTRAINT FK_Emprestimo_Aluno FOREIGN KEY (Codigo_Aluno) REFERENCES Dim_Aluno (Codigo_Aluno),
-    ADD CONSTRAINT FK_Emprestimo_Tempo_Emprestimo FOREIGN KEY (Codigo_Tempo_Emprestimo) REFERENCES Dim_Tempo (Codigo_Tempo),
-    ADD CONSTRAINT FK_Emprestimo_Tempo_Devolucao FOREIGN KEY (Codigo_Tempo_Devolucao) REFERENCES Dim_Tempo (Codigo_Tempo),
-    ADD CONSTRAINT FK_Emprestimo_Administrador FOREIGN KEY (Codigo_Administrador) REFERENCES Dim_Administrador (Codigo_Administrador);
+create table if not exists public.fato_emprestimo
+(
+    codigo_emprestimo       serial
+        primary key,
+    codigo_instrumento      integer not null
+        references public.dim_instrumento,
+    codigo_aluno            integer not null
+        references public.dim_aluno,
+    codigo_tempo_emprestimo integer not null
+        references public.dim_tempo,
+    codigo_tempo_devolucao  integer
+        references public.dim_tempo,
+    codigo_administrador    integer not null
+        references public.dim_administrador,
+    status                  varchar(50)
+);
 
--- Fato_AgendamentoAula
-ALTER TABLE Fato_AgendamentoAula
-    ADD CONSTRAINT FK_Agendamento_Turma FOREIGN KEY (Codigo_Turma) REFERENCES Dim_Turma (Codigo_Turma),
-    ADD CONSTRAINT FK_Agendamento_Professor FOREIGN KEY (Codigo_Professor) REFERENCES Dim_Professor (Codigo_Professor),
-    ADD CONSTRAINT FK_Agendamento_Tempo FOREIGN KEY (Codigo_Tempo) REFERENCES Dim_Tempo (Codigo_Tempo),
-    ADD CONSTRAINT FK_Agendamento_Administrador FOREIGN KEY (Codigo_Administrador) REFERENCES Dim_Administrador (Codigo_Administrador);
+alter table public.fato_emprestimo
+    owner to puc_aws;
 
--- Fato_Matricula
-ALTER TABLE Fato_Matricula
-    ADD CONSTRAINT FK_Matricula_Aluno FOREIGN KEY (Codigo_Aluno) REFERENCES Dim_Aluno (Codigo_Aluno),
-    ADD CONSTRAINT FK_Matricula_Turma FOREIGN KEY (Codigo_Turma) REFERENCES Dim_Turma (Codigo_Turma),
-    ADD CONSTRAINT FK_Matricula_Administrador FOREIGN KEY (Codigo_Administrador) REFERENCES Dim_Administrador (Codigo_Administrador);
+create table if not exists public.fato_agendamentoaula
+(
+    codigo_agendamento   serial
+        primary key,
+    codigo_turma         integer not null
+        references public.dim_turma,
+    codigo_professor     integer not null
+        references public.dim_professor,
+    codigo_horario       integer not null
+        references public.dim_horario,
+    codigo_administrador integer not null
+        references public.dim_administrador
+);
 
--- Fato_EstoqueMovimentacao
-ALTER TABLE Fato_EstoqueMovimentacao
-    ADD CONSTRAINT FK_Movimentacao_Estoque FOREIGN KEY (Codigo_Estoque) REFERENCES Dim_Estoque (Codigo_Estoque),
-    ADD CONSTRAINT FK_Movimentacao_Tempo FOREIGN KEY (Codigo_Tempo) REFERENCES Dim_Tempo (Codigo_Tempo),
-    ADD CONSTRAINT FK_Movimentacao_Administrador FOREIGN KEY (Codigo_Administrador) REFERENCES Dim_Administrador (Codigo_Administrador);
+alter table public.fato_agendamentoaula
+    owner to puc_aws;
 
+create table if not exists public.fato_estoquemovimentacao
+(
+    codigo_movimentacao  serial
+        primary key,
+    codigo_estoque       integer     not null
+        references public.dim_estoque,
+    codigo_tempo         integer     not null
+        references public.dim_tempo,
+    codigo_administrador integer     not null
+        references public.dim_administrador,
+    tipo_movimentacao    varchar(50) not null,
+    quantidade           integer     not null
+);
 
+alter table public.fato_estoquemovimentacao
+    owner to puc_aws;
 
-INSERT INTO Dim_Instrumento (Nome, Tipo)
-VALUES
-    ('Violão Yamaha', 'Cordas'),
-    ('Piano Kawai', 'Teclas'),
-    ('Flauta Yamaha', 'Sopro'),
-    ('Guitarra Fender', 'Cordas'),
-    ('Bateria Pearl', 'Percussão');
-
-INSERT INTO Dim_Aluno (Nome, Matricula, Endereco)
-VALUES
-    ('Maria Oliveira', '20230001', 'Rua das Flores, 123'),
-    ('João Silva', '20230002', 'Rua das Palmeiras, 456'),
-    ('Ana Costa', '20230003', 'Av. Brasil, 789'),
-    ('Pedro Santos', '20230004', 'Rua das Laranjeiras, 101'),
-    ('Clara Ferreira', '20230005', 'Rua dos Jacarandás, 202');
-
-INSERT INTO Dim_Tempo (Data, Ano, Mes, Dia, Dia_Semana)
-VALUES
-    ('2024-01-10', 2024, 1, 10, 'Quarta-feira'),
-    ('2024-01-15', 2024, 1, 15, 'Segunda-feira'),
-    ('2024-01-20', 2024, 1, 20, 'Sábado'),
-    ('2024-01-25', 2024, 1, 25, 'Quinta-feira'),
-    ('2024-01-30', 2024, 1, 30, 'Terça-feira');
-INSERT INTO Dim_Administrador (Nome, Contato, Tipo)
-VALUES
-    ('Carlos Mendes', 'carlos.mendes@escola.com', 'Supervisor Geral'),
-    ('Mariana Souza', 'mariana.souza@escola.com', 'Administrador de Recursos'),
-    ('Fernando Lima', 'fernando.lima@escola.com', 'Supervisor de Estoque'),
-    ('Clara Almeida', 'clara.almeida@escola.com', 'Coordenadora Geral');
-INSERT INTO Dim_Professor (Nome, Contato, Habilidades)
-VALUES
-    ('Carlos Silva', 'carlos.silva@escola.com', 'Violão, Piano'),
-    ('Ana Pereira', 'ana.pereira@escola.com', 'Flauta, Saxofone'),
-    ('João Souza', 'joao.souza@escola.com', 'Guitarra, Bateria'),
-    ('Mariana Costa', 'mariana.costa@escola.com', 'Teclado, Violino');
-INSERT INTO Dim_Turma (Nome, Sala, Horario)
-VALUES
-    ('Turma A', 101, '08:00:00'),
-    ('Turma B', 102, '10:00:00'),
-    ('Turma C', 103, '14:00:00'),
-    ('Turma D', 104, '16:00:00');
-INSERT INTO Dim_Estoque (Localizacao, Quantidade)
-VALUES
-    ('Sala de Instrumentos', 20),
-    ('Depósito Central', 50),
-    ('Sala 101', 10),
-    ('Sala 102', 15);
-INSERT INTO Fato_Emprestimo (Codigo_Instrumento, Codigo_Aluno, Codigo_Tempo_Emprestimo, Codigo_Tempo_Devolucao, Codigo_Administrador, Tipo_Administrador, Status, Descricao)
-VALUES
-    (1, 1, 1, 2, 1, 'Supervisor Geral', 'Devolvido', 'Sem danos.'),
-    (2, 2, 3, NULL, 2, 'Administrador de Recursos', 'Em andamento', 'Prazo de devolução: 7 dias.'),
-    (3, 3, 4, 5, 3, 'Supervisor de Estoque', 'Devolvido', 'Devolução no prazo.');
-INSERT INTO Fato_AgendamentoAula (Codigo_Turma, Codigo_Professor, Codigo_Tempo, Codigo_Administrador, Tipo_Administrador, Descricao)
-VALUES
-    (1, 1, 1, 1, 'Supervisor Geral', 'Aula de violão.'),
-    (2, 2, 2, 2, 'Administrador de Recursos', 'Aula de flauta.'),
-    (3, 3, 3, 3, 'Supervisor de Estoque', 'Aula de guitarra.');
-INSERT INTO Fato_Matricula (Codigo_Aluno, Codigo_Turma, Codigo_Administrador, Tipo_Administrador, Data_Inicio, Status)
-VALUES
-    (1, 1, 1, 'Supervisor Geral', '2024-01-01', 'Ativo'),
-    (2, 2, 2, 'Administrador de Recursos', '2024-01-05', 'Ativo'),
-    (3, 3, 3, 'Supervisor de Estoque', '2024-01-10', 'Inativo');
-INSERT INTO Fato_EstoqueMovimentacao (Codigo_Estoque, Codigo_Tempo, Codigo_Administrador, Tipo_Administrador, Tipo_Movimentacao, Quantidade)
-VALUES
-    (1, 1, 1, 'Supervisor Geral', 'Entrada', 10),
-    (2, 2, 2, 'Administrador de Recursos', 'Saída', 5),
-    (3, 3, 3, 'Supervisor de Estoque', 'Entrada', 20);

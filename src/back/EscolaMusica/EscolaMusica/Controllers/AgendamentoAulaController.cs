@@ -22,18 +22,30 @@ namespace EscolaMusica.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<FatoAgendamentoAula>>> GetAgendamentosAula()
         {
-            return await _context.FatoAgendamentosAula.ToListAsync();
+            return await _context.FatoAgendamentosAula
+                .Include(a => a.turma) 
+                .Include(a => a.professor) 
+                .Include(a => a.horario) 
+                .Include(a => a.administrador) 
+                .AsNoTracking()
+                .ToListAsync();
         }
 
         // GET: api/AgendamentoAula/5
         [HttpGet("{id}")]
         public async Task<ActionResult<FatoAgendamentoAula>> GetAgendamentoAula(int id)
         {
-            var agendamento = await _context.FatoAgendamentosAula.FindAsync(id);
+            var agendamento = await _context.FatoAgendamentosAula
+                .Include(a => a.turma)
+                .Include(a => a.professor)
+                .Include(a => a.horario)
+                .Include(a => a.administrador)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(a => a.codigo_agendamento == id);
 
             if (agendamento == null)
             {
-                return NotFound();
+                return NotFound(new { message = $"Agendamento com ID {id} não encontrado." });
             }
 
             return agendamento;
@@ -45,7 +57,7 @@ namespace EscolaMusica.Controllers
         {
             if (id != agendamentoAula.codigo_agendamento)
             {
-                return BadRequest();
+                return BadRequest(new { message = "O ID fornecido não corresponde ao ID do agendamento." });
             }
 
             _context.Entry(agendamentoAula).State = EntityState.Modified;
@@ -58,7 +70,7 @@ namespace EscolaMusica.Controllers
             {
                 if (!AgendamentoAulaExists(id))
                 {
-                    return NotFound();
+                    return NotFound(new { message = $"Agendamento com ID {id} não encontrado para atualização." });
                 }
                 else
                 {
@@ -73,6 +85,12 @@ namespace EscolaMusica.Controllers
         [HttpPost]
         public async Task<ActionResult<FatoAgendamentoAula>> PostAgendamentoAula(FatoAgendamentoAula agendamentoAula)
         {
+            // Validações adicionais podem ser inseridas aqui
+            if (agendamentoAula.codigo_turma <= 0 || agendamentoAula.codigo_professor <= 0 || agendamentoAula.codigo_horario <= 0)
+            {
+                return BadRequest(new { message = "Os campos de Turma, Professor e Tempo são obrigatórios." });
+            }
+
             _context.FatoAgendamentosAula.Add(agendamentoAula);
             await _context.SaveChangesAsync();
 
@@ -86,7 +104,7 @@ namespace EscolaMusica.Controllers
             var agendamento = await _context.FatoAgendamentosAula.FindAsync(id);
             if (agendamento == null)
             {
-                return NotFound();
+                return NotFound(new { message = $"Agendamento com ID {id} não encontrado para exclusão." });
             }
 
             _context.FatoAgendamentosAula.Remove(agendamento);

@@ -22,18 +22,18 @@ namespace EscolaMusica.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<DimAdministrador>>> GetDimAdministradores()
         {
-            return await _context.DimAdministradores.ToListAsync();
+            return await _context.DimAdministradores.AsNoTracking().ToListAsync();
         }
 
         // GET: api/Administrador/5
         [HttpGet("{id}")]
         public async Task<ActionResult<DimAdministrador>> GetDimAdministrador(int id)
         {
-            var administrador = await _context.DimAdministradores.FindAsync(id);
+            var administrador = await _context.DimAdministradores.AsNoTracking().FirstOrDefaultAsync(a => a.codigo_administrador == id);
 
             if (administrador == null)
             {
-                return NotFound();
+                return NotFound(new { message = $"Administrador com ID {id} não encontrado." });
             }
 
             return administrador;
@@ -45,7 +45,7 @@ namespace EscolaMusica.Controllers
         {
             if (id != administrador.codigo_administrador)
             {
-                return BadRequest();
+                return BadRequest(new { message = "O ID fornecido não corresponde ao ID do administrador." });
             }
 
             _context.Entry(administrador).State = EntityState.Modified;
@@ -58,7 +58,7 @@ namespace EscolaMusica.Controllers
             {
                 if (!DimAdministradorExists(id))
                 {
-                    return NotFound();
+                    return NotFound(new { message = $"Administrador com ID {id} não encontrado para atualização." });
                 }
                 else
                 {
@@ -73,6 +73,12 @@ namespace EscolaMusica.Controllers
         [HttpPost]
         public async Task<ActionResult<DimAdministrador>> PostDimAdministrador(DimAdministrador administrador)
         {
+            // Validações adicionais antes de salvar
+            if (string.IsNullOrEmpty(administrador.nome))
+            {
+                return BadRequest(new { message = "O campo 'Nome' é obrigatório." });
+            }
+
             _context.DimAdministradores.Add(administrador);
             await _context.SaveChangesAsync();
 
@@ -86,7 +92,7 @@ namespace EscolaMusica.Controllers
             var administrador = await _context.DimAdministradores.FindAsync(id);
             if (administrador == null)
             {
-                return NotFound();
+                return NotFound(new { message = $"Administrador com ID {id} não encontrado para exclusão." });
             }
 
             _context.DimAdministradores.Remove(administrador);
@@ -95,6 +101,7 @@ namespace EscolaMusica.Controllers
             return NoContent();
         }
 
+        // Método auxiliar para verificar existência
         private bool DimAdministradorExists(int id)
         {
             return _context.DimAdministradores.Any(e => e.codigo_administrador == id);

@@ -22,18 +22,22 @@ namespace EscolaMusica.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<DimProfessor>>> GetProfessores()
         {
-            return await _context.DimProfessores.ToListAsync();
+            return await _context.DimProfessores
+                .AsNoTracking()
+                .ToListAsync();
         }
 
         // GET: api/Professor/5
         [HttpGet("{id}")]
         public async Task<ActionResult<DimProfessor>> GetProfessor(int id)
         {
-            var professor = await _context.DimProfessores.FindAsync(id);
+            var professor = await _context.DimProfessores
+                .AsNoTracking()
+                .FirstOrDefaultAsync(p => p.codigo_professor == id);
 
             if (professor == null)
             {
-                return NotFound();
+                return NotFound(new { message = $"Professor com ID {id} não encontrado." });
             }
 
             return professor;
@@ -45,7 +49,7 @@ namespace EscolaMusica.Controllers
         {
             if (id != professor.codigo_professor)
             {
-                return BadRequest();
+                return BadRequest(new { message = "O ID fornecido não corresponde ao ID do professor." });
             }
 
             _context.Entry(professor).State = EntityState.Modified;
@@ -58,7 +62,7 @@ namespace EscolaMusica.Controllers
             {
                 if (!ProfessorExists(id))
                 {
-                    return NotFound();
+                    return NotFound(new { message = $"Professor com ID {id} não encontrado para atualização." });
                 }
                 else
                 {
@@ -73,6 +77,12 @@ namespace EscolaMusica.Controllers
         [HttpPost]
         public async Task<ActionResult<DimProfessor>> PostProfessor(DimProfessor professor)
         {
+            // Validações adicionais
+            if (string.IsNullOrEmpty(professor.nome) || string.IsNullOrEmpty(professor.habilidades))
+            {
+                return BadRequest(new { message = "Os campos 'Nome' e 'Habilidades' são obrigatórios." });
+            }
+
             _context.DimProfessores.Add(professor);
             await _context.SaveChangesAsync();
 
@@ -86,7 +96,7 @@ namespace EscolaMusica.Controllers
             var professor = await _context.DimProfessores.FindAsync(id);
             if (professor == null)
             {
-                return NotFound();
+                return NotFound(new { message = $"Professor com ID {id} não encontrado para exclusão." });
             }
 
             _context.DimProfessores.Remove(professor);
@@ -95,6 +105,7 @@ namespace EscolaMusica.Controllers
             return NoContent();
         }
 
+        // Método auxiliar para verificar existência
         private bool ProfessorExists(int id)
         {
             return _context.DimProfessores.Any(e => e.codigo_professor == id);

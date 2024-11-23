@@ -22,14 +22,24 @@ namespace EscolaMusica.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<FatoMatricula>>> GetMatriculas()
         {
-            return await _context.FatoMatriculas.ToListAsync();
+            return await _context.FatoMatriculas
+                .Include(m => m.aluno)
+                .Include(m => m.turma)
+                .Include(m => m.pagamento)
+                .Include(m => m.administrador)
+                .ToListAsync();
         }
 
         // GET: api/Matricula/5
         [HttpGet("{id}")]
         public async Task<ActionResult<FatoMatricula>> GetMatricula(int id)
         {
-            var matricula = await _context.FatoMatriculas.FindAsync(id);
+            var matricula = await _context.FatoMatriculas
+                .Include(m => m.aluno)
+                .Include(m => m.turma)
+                .Include(m => m.pagamento)
+                .Include(m => m.administrador)
+                .FirstOrDefaultAsync(m => m.codigo_matricula == id);
 
             if (matricula == null)
             {

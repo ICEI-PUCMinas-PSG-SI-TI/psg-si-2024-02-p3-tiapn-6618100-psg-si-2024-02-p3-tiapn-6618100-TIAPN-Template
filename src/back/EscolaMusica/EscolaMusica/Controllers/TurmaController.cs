@@ -22,18 +22,22 @@ namespace EscolaMusica.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<DimTurma>>> GetTurmas()
         {
-            return await _context.DimTurmas.ToListAsync();
+            return await _context.DimTurmas
+                .AsNoTracking()
+                .ToListAsync();
         }
 
         // GET: api/Turma/5
         [HttpGet("{id}")]
         public async Task<ActionResult<DimTurma>> GetTurma(int id)
         {
-            var turma = await _context.DimTurmas.FindAsync(id);
+            var turma = await _context.DimTurmas
+                .AsNoTracking()
+                .FirstOrDefaultAsync(t => t.codigo_turma == id);
 
             if (turma == null)
             {
-                return NotFound();
+                return NotFound(new { message = $"Turma com ID {id} não encontrada." });
             }
 
             return turma;
@@ -45,7 +49,7 @@ namespace EscolaMusica.Controllers
         {
             if (id != turma.codigo_turma)
             {
-                return BadRequest();
+                return BadRequest(new { message = "O ID fornecido não corresponde ao ID da turma." });
             }
 
             _context.Entry(turma).State = EntityState.Modified;
@@ -58,7 +62,7 @@ namespace EscolaMusica.Controllers
             {
                 if (!TurmaExists(id))
                 {
-                    return NotFound();
+                    return NotFound(new { message = $"Turma com ID {id} não encontrada para atualização." });
                 }
                 else
                 {
@@ -73,6 +77,12 @@ namespace EscolaMusica.Controllers
         [HttpPost]
         public async Task<ActionResult<DimTurma>> PostTurma(DimTurma turma)
         {
+            // Validações adicionais
+            if (string.IsNullOrEmpty(turma.nome) || turma.sala <= 0 || turma.numero_vagas <= 0)
+            {
+                return BadRequest(new { message = "Os campos 'Nome', 'Sala' e 'Número de Vagas' são obrigatórios." });
+            }
+
             _context.DimTurmas.Add(turma);
             await _context.SaveChangesAsync();
 
@@ -86,7 +96,7 @@ namespace EscolaMusica.Controllers
             var turma = await _context.DimTurmas.FindAsync(id);
             if (turma == null)
             {
-                return NotFound();
+                return NotFound(new { message = $"Turma com ID {id} não encontrada para exclusão." });
             }
 
             _context.DimTurmas.Remove(turma);
@@ -95,6 +105,7 @@ namespace EscolaMusica.Controllers
             return NoContent();
         }
 
+        // Método auxiliar para verificar existência
         private bool TurmaExists(int id)
         {
             return _context.DimTurmas.Any(e => e.codigo_turma == id);
