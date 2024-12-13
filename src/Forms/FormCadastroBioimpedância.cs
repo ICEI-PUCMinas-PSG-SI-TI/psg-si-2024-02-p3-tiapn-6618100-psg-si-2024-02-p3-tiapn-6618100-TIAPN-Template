@@ -264,10 +264,10 @@ namespace BodyShape_TI.Forms
                "VALUES(@gordura, @peso, @altura, @massa_magra, @tbl_Educador_Fisico_tbl_Funcionario_id, @tbl_Aluno_id, @tbl_Aluno_tbl_Atendente_tbl_Funcionario_id)";
 
 
-                cmd.Parameters.AddWithValue("@gordura", Convert.ToDouble(txt_gordura.Text));
-                cmd.Parameters.AddWithValue("@peso", Convert.ToDouble(txt_Peso.Text));
-                cmd.Parameters.AddWithValue("@altura", Convert.ToDouble(txt_Altura.Text));
-                cmd.Parameters.AddWithValue("@massa_magra", Convert.ToDouble(txt_Massa_Magra.Text));
+                cmd.Parameters.AddWithValue("@gordura", txt_gordura.Text);
+                cmd.Parameters.AddWithValue("@peso", txt_Peso.Text);
+                cmd.Parameters.AddWithValue("@altura", txt_Altura.Text);
+                cmd.Parameters.AddWithValue("@massa_magra", txt_Massa_Magra.Text);
                 cmd.Parameters.AddWithValue("@tbl_Educador_Fisico_tbl_Funcionario_id", txt_Id_Educador_Fisico.Text);
                 cmd.Parameters.AddWithValue("@tbl_Aluno_id", txt_Id_Aluno.Text);
                 cmd.Parameters.AddWithValue("@tbl_Aluno_tbl_Atendente_tbl_Funcionario_id", txt_Id_Atendente.Text);
@@ -426,10 +426,10 @@ namespace BodyShape_TI.Forms
                                    "WHERE id=@id";
 
 
-                cmd.Parameters.AddWithValue("@gordura", Convert.ToDouble(txt_gordura.Text));
-                cmd.Parameters.AddWithValue("@peso", Convert.ToDouble(txt_Peso.Text));
-                cmd.Parameters.AddWithValue("@altura", Convert.ToDouble(txt_Altura.Text));
-                cmd.Parameters.AddWithValue("@massa_magra", Convert.ToDouble(txt_Massa_Magra.Text));
+                cmd.Parameters.AddWithValue("@gordura", txt_gordura.Text);
+                cmd.Parameters.AddWithValue("@peso", txt_Peso.Text);
+                cmd.Parameters.AddWithValue("@altura", txt_Altura.Text);
+                cmd.Parameters.AddWithValue("@massa_magra", txt_Massa_Magra.Text);
                 cmd.Parameters.AddWithValue("@tbl_Educador_Fisico_tbl_Funcionario_id", txt_Id_Educador_Fisico.Text);
                 cmd.Parameters.AddWithValue("@tbl_Aluno_id", txt_Id_Aluno.Text);
                 cmd.Parameters.AddWithValue("@tbl_Aluno_tbl_Atendente_tbl_Funcionario_id", txt_Id_Atendente.Text);

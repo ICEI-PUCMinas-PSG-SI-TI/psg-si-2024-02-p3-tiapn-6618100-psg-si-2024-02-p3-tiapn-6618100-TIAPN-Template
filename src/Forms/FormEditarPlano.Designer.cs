@@ -39,6 +39,7 @@
             button2 = new Button();
             txtPlanoID = new TextBox();
             label2 = new Label();
+            listViewPlanos = new ListView();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -48,7 +49,7 @@
             btnCancelar.Cursor = Cursors.Hand;
             btnCancelar.Font = new Font("Impact", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnCancelar.ForeColor = SystemColors.ButtonHighlight;
-            btnCancelar.Location = new Point(207, 196);
+            btnCancelar.Location = new Point(212, 286);
             btnCancelar.Name = "btnCancelar";
             btnCancelar.Size = new Size(111, 38);
             btnCancelar.TabIndex = 134;
@@ -59,7 +60,7 @@
             // txtTipoPlano
             // 
             txtTipoPlano.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            txtTipoPlano.Location = new Point(416, 165);
+            txtTipoPlano.Location = new Point(421, 255);
             txtTipoPlano.Margin = new Padding(3, 2, 3, 2);
             txtTipoPlano.Name = "txtTipoPlano";
             txtTipoPlano.Size = new Size(149, 23);
@@ -70,7 +71,7 @@
             label1.AutoSize = true;
             label1.BackColor = Color.Transparent;
             label1.Font = new Font("Impact", 10.8F);
-            label1.Location = new Point(416, 144);
+            label1.Location = new Point(421, 234);
             label1.Name = "label1";
             label1.Size = new Size(97, 19);
             label1.TabIndex = 129;
@@ -79,18 +80,19 @@
             // txtValorPlano
             // 
             txtValorPlano.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            txtValorPlano.Location = new Point(207, 165);
+            txtValorPlano.Location = new Point(212, 255);
             txtValorPlano.Margin = new Padding(3, 2, 3, 2);
             txtValorPlano.Name = "txtValorPlano";
             txtValorPlano.Size = new Size(149, 23);
             txtValorPlano.TabIndex = 127;
+            txtValorPlano.TextChanged += txtValorPlano_TextChanged;
             // 
             // lblNome
             // 
             lblNome.AutoSize = true;
             lblNome.BackColor = Color.Transparent;
             lblNome.Font = new Font("Impact", 10.8F);
-            lblNome.Location = new Point(207, 144);
+            lblNome.Location = new Point(212, 234);
             lblNome.Name = "lblNome";
             lblNome.Size = new Size(83, 19);
             lblNome.TabIndex = 128;
@@ -136,7 +138,7 @@
             button2.Cursor = Cursors.Hand;
             button2.Font = new Font("Impact", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             button2.ForeColor = SystemColors.ButtonHighlight;
-            button2.Location = new Point(454, 196);
+            button2.Location = new Point(459, 286);
             button2.Name = "button2";
             button2.Size = new Size(111, 38);
             button2.TabIndex = 137;
@@ -147,10 +149,10 @@
             // txtPlanoID
             // 
             txtPlanoID.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            txtPlanoID.Location = new Point(309, 70);
+            txtPlanoID.Location = new Point(459, 45);
             txtPlanoID.Margin = new Padding(3, 2, 3, 2);
             txtPlanoID.Name = "txtPlanoID";
-            txtPlanoID.Size = new Size(149, 23);
+            txtPlanoID.Size = new Size(52, 23);
             txtPlanoID.TabIndex = 135;
             // 
             // label2
@@ -164,11 +166,21 @@
             label2.TabIndex = 136;
             label2.Text = "Informe o ID do Plano:";
             // 
+            // listViewPlanos
+            // 
+            listViewPlanos.Location = new Point(209, 75);
+            listViewPlanos.Name = "listViewPlanos";
+            listViewPlanos.Size = new Size(372, 146);
+            listViewPlanos.TabIndex = 138;
+            listViewPlanos.UseCompatibleStateImageBehavior = false;
+            listViewPlanos.SelectedIndexChanged += listViewPlanos_SelectedIndexChanged;
+            // 
             // FormEditarPlano
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(listViewPlanos);
             Controls.Add(button2);
             Controls.Add(txtPlanoID);
             Controls.Add(label2);
@@ -200,5 +212,6 @@
         private Button button2;
         private TextBox txtPlanoID;
         private Label label2;
+        private ListView listViewPlanos;
     }
 }

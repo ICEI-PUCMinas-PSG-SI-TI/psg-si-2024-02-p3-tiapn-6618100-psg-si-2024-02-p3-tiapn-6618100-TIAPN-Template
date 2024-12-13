@@ -35,6 +35,7 @@
             panel1 = new Panel();
             lblSair = new Label();
             lblTitulo = new Label();
+            listViewPlanos = new ListView();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -44,7 +45,7 @@
             botaoExcluir.Cursor = Cursors.Hand;
             botaoExcluir.Font = new Font("Impact", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             botaoExcluir.ForeColor = SystemColors.ButtonHighlight;
-            botaoExcluir.Location = new Point(468, 126);
+            botaoExcluir.Location = new Point(471, 294);
             botaoExcluir.Name = "botaoExcluir";
             botaoExcluir.Size = new Size(111, 38);
             botaoExcluir.TabIndex = 146;
@@ -55,11 +56,12 @@
             // txtPlanoID
             // 
             txtPlanoID.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            txtPlanoID.Location = new Point(325, 70);
+            txtPlanoID.Location = new Point(471, 45);
             txtPlanoID.Margin = new Padding(3, 2, 3, 2);
             txtPlanoID.Name = "txtPlanoID";
-            txtPlanoID.Size = new Size(149, 23);
+            txtPlanoID.Size = new Size(44, 23);
             txtPlanoID.TabIndex = 144;
+            txtPlanoID.TextChanged += txtPlanoID_TextChanged;
             // 
             // label2
             // 
@@ -78,7 +80,7 @@
             btnCancelar.Cursor = Cursors.Hand;
             btnCancelar.Font = new Font("Impact", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnCancelar.ForeColor = SystemColors.ButtonHighlight;
-            btnCancelar.Location = new Point(221, 126);
+            btnCancelar.Location = new Point(221, 294);
             btnCancelar.Name = "btnCancelar";
             btnCancelar.Size = new Size(111, 38);
             btnCancelar.TabIndex = 143;
@@ -120,11 +122,21 @@
             lblTitulo.TabIndex = 1;
             lblTitulo.Text = "Excluir Plano";
             // 
+            // listViewPlanos
+            // 
+            listViewPlanos.Location = new Point(208, 76);
+            listViewPlanos.Name = "listViewPlanos";
+            listViewPlanos.Size = new Size(417, 195);
+            listViewPlanos.TabIndex = 147;
+            listViewPlanos.UseCompatibleStateImageBehavior = false;
+            listViewPlanos.SelectedIndexChanged += listViewPlanos_SelectedIndexChanged;
+            // 
             // FormExcluirPlano
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(listViewPlanos);
             Controls.Add(botaoExcluir);
             Controls.Add(txtPlanoID);
             Controls.Add(label2);
@@ -148,5 +160,6 @@
         private Panel panel1;
         private Label lblSair;
         private Label lblTitulo;
+        private ListView listViewPlanos;
     }
 }
