@@ -246,7 +246,7 @@ namespace BodyShape_TI.Forms
 
         private void lblSair_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Util.MensagemFechamento(this);
         }
 
         private void btn_Cadastrar_Click(object sender, EventArgs e)
@@ -574,23 +574,12 @@ namespace BodyShape_TI.Forms
 
         private void btn_Cancelar_Click(object sender, EventArgs e)
         {
-            MensagemFechamento();
+            Util.MensagemFechamento(this);
         }
 
         private void lblSair_Click_1(object sender, EventArgs e)
         {
-            MensagemFechamento();
-        }
-
-        private void MensagemFechamento()
-        {
-            if (MessageBox.Show("Caso possua informações não salvas, ao fechar esta aba, todas as alterações serão perdidas.\n\nDeseja realmente fechar esta tela?",
-                     "Confirmação",
-                     MessageBoxButtons.YesNo,
-                     MessageBoxIcon.Warning) == DialogResult.Yes)
-            {
-                this.Close();
-            }
+            Util.MensagemFechamento(this);
         }
 
         private void txt_gordura_Leave(object sender, EventArgs e)

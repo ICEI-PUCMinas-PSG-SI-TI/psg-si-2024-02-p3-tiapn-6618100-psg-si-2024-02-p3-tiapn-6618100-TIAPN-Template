@@ -69,9 +69,8 @@
             panel1.Controls.Add(lblSair);
             panel1.Controls.Add(lblTitulo);
             panel1.Location = new Point(-1, -1);
-            panel1.Margin = new Padding(3, 2, 3, 2);
             panel1.Name = "panel1";
-            panel1.Size = new Size(800, 32);
+            panel1.Size = new Size(923, 43);
             panel1.TabIndex = 0;
             // 
             // lblSair
@@ -80,9 +79,9 @@
             lblSair.BackColor = Color.Transparent;
             lblSair.Font = new Font("Arial", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblSair.ForeColor = Color.DarkSlateGray;
-            lblSair.Location = new Point(767, 8);
+            lblSair.Location = new Point(567, 12);
             lblSair.Name = "lblSair";
-            lblSair.Size = new Size(18, 18);
+            lblSair.Size = new Size(22, 21);
             lblSair.TabIndex = 2;
             lblSair.Text = "X";
             lblSair.Click += lblSair_Click;
@@ -92,9 +91,9 @@
             lblTitulo.AutoSize = true;
             lblTitulo.BackColor = Color.Transparent;
             lblTitulo.Font = new Font("Impact", 10.8F);
-            lblTitulo.Location = new Point(11, 8);
+            lblTitulo.Location = new Point(13, 11);
             lblTitulo.Name = "lblTitulo";
-            lblTitulo.Size = new Size(123, 19);
+            lblTitulo.Size = new Size(140, 22);
             lblTitulo.TabIndex = 1;
             lblTitulo.Text = "Cadastro de Aluno";
             // 
@@ -103,28 +102,26 @@
             lblNome.AutoSize = true;
             lblNome.BackColor = Color.Transparent;
             lblNome.Font = new Font("Impact", 10.8F);
-            lblNome.Location = new Point(44, 42);
+            lblNome.Location = new Point(50, 56);
             lblNome.Name = "lblNome";
-            lblNome.Size = new Size(48, 19);
+            lblNome.Size = new Size(55, 22);
             lblNome.TabIndex = 3;
             lblNome.Text = "Nome:";
             // 
             // txtNome
             // 
-            txtNome.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            txtNome.Location = new Point(44, 59);
-            txtNome.Margin = new Padding(3, 2, 3, 2);
+            txtNome.Anchor = AnchorStyles.Left;
+            txtNome.Location = new Point(50, 84);
             txtNome.Name = "txtNome";
-            txtNome.Size = new Size(717, 23);
+            txtNome.Size = new Size(494, 27);
             txtNome.TabIndex = 1;
             // 
             // txtNumero
             // 
-            txtNumero.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            txtNumero.Location = new Point(555, 165);
-            txtNumero.Margin = new Padding(3, 2, 3, 2);
+            txtNumero.Anchor = AnchorStyles.Left;
+            txtNumero.Location = new Point(427, 228);
             txtNumero.Name = "txtNumero";
-            txtNumero.Size = new Size(65, 23);
+            txtNumero.Size = new Size(117, 27);
             txtNumero.TabIndex = 2;
             // 
             // lblEmail
@@ -132,9 +129,9 @@
             lblEmail.AutoSize = true;
             lblEmail.BackColor = Color.Transparent;
             lblEmail.Font = new Font("Impact", 10.8F);
-            lblEmail.Location = new Point(555, 144);
+            lblEmail.Location = new Point(427, 200);
             lblEmail.Name = "lblEmail";
-            lblEmail.Size = new Size(61, 19);
+            lblEmail.Size = new Size(70, 22);
             lblEmail.TabIndex = 7;
             lblEmail.Text = "Numero:";
             // 
@@ -143,9 +140,9 @@
             lblTelefone.AutoSize = true;
             lblTelefone.BackColor = Color.Transparent;
             lblTelefone.Font = new Font("Impact", 10.8F);
-            lblTelefone.Location = new Point(477, 90);
+            lblTelefone.Location = new Point(427, 128);
             lblTelefone.Name = "lblTelefone";
-            lblTelefone.Size = new Size(66, 19);
+            lblTelefone.Size = new Size(76, 22);
             lblTelefone.TabIndex = 9;
             lblTelefone.Text = "Telefone:";
             // 
@@ -154,9 +151,9 @@
             lblDataNascimento.AutoSize = true;
             lblDataNascimento.BackColor = Color.Transparent;
             lblDataNascimento.Font = new Font("Impact", 10.8F);
-            lblDataNascimento.Location = new Point(174, 88);
+            lblDataNascimento.Location = new Point(50, 128);
             lblDataNascimento.Name = "lblDataNascimento";
-            lblDataNascimento.Size = new Size(138, 19);
+            lblDataNascimento.Size = new Size(156, 22);
             lblDataNascimento.TabIndex = 11;
             lblDataNascimento.Text = "Data de nascimento:";
             // 
@@ -165,30 +162,31 @@
             lblGenero.AutoSize = true;
             lblGenero.BackColor = Color.Transparent;
             lblGenero.Font = new Font("Impact", 10.8F);
-            lblGenero.Location = new Point(353, 88);
+            lblGenero.Location = new Point(245, 128);
             lblGenero.Name = "lblGenero";
-            lblGenero.Size = new Size(93, 19);
+            lblGenero.Size = new Size(108, 22);
             lblGenero.TabIndex = 13;
             lblGenero.Text = "Gênero (M/F):";
             // 
             // txtDataNasc
             // 
-            txtDataNasc.Location = new Point(174, 109);
-            txtDataNasc.Margin = new Padding(3, 2, 3, 2);
+            txtDataNasc.Anchor = AnchorStyles.Left;
+            txtDataNasc.Location = new Point(50, 156);
             txtDataNasc.Mask = "00/00/0000";
             txtDataNasc.Name = "txtDataNasc";
-            txtDataNasc.Size = new Size(137, 23);
+            txtDataNasc.Size = new Size(156, 27);
             txtDataNasc.TabIndex = 5;
             txtDataNasc.ValidatingType = typeof(DateTime);
+            txtDataNasc.KeyPress += txtDataNasc_KeyPress;
             // 
             // label1
             // 
             label1.AutoSize = true;
             label1.BackColor = Color.Transparent;
             label1.Font = new Font("Impact", 10.8F);
-            label1.Location = new Point(295, 315);
+            label1.Location = new Point(202, 416);
             label1.Name = "label1";
-            label1.Size = new Size(99, 19);
+            label1.Size = new Size(114, 22);
             label1.TabIndex = 17;
             label1.Text = "Atendente(ID):";
             // 
@@ -198,9 +196,10 @@
             btnCancelar.Cursor = Cursors.Hand;
             btnCancelar.Font = new Font("Impact", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnCancelar.ForeColor = SystemColors.ButtonHighlight;
-            btnCancelar.Location = new Point(186, 551);
+            btnCancelar.Location = new Point(276, 639);
+            btnCancelar.Margin = new Padding(3, 4, 3, 4);
             btnCancelar.Name = "btnCancelar";
-            btnCancelar.Size = new Size(111, 38);
+            btnCancelar.Size = new Size(127, 51);
             btnCancelar.TabIndex = 22;
             btnCancelar.Text = "Cancelar";
             btnCancelar.UseVisualStyleBackColor = false;
@@ -212,9 +211,10 @@
             btnSalvar.Cursor = Cursors.Hand;
             btnSalvar.Font = new Font("Impact", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnSalvar.ForeColor = SystemColors.ButtonHighlight;
-            btnSalvar.Location = new Point(441, 551);
+            btnSalvar.Location = new Point(417, 698);
+            btnSalvar.Margin = new Padding(3, 4, 3, 4);
             btnSalvar.Name = "btnSalvar";
-            btnSalvar.Size = new Size(111, 38);
+            btnSalvar.Size = new Size(127, 51);
             btnSalvar.TabIndex = 21;
             btnSalvar.Text = "Salvar";
             btnSalvar.UseVisualStyleBackColor = false;
@@ -222,19 +222,19 @@
             // 
             // txtTelefone
             // 
-            txtTelefone.Location = new Point(477, 109);
-            txtTelefone.Margin = new Padding(3, 2, 3, 2);
+            txtTelefone.Anchor = AnchorStyles.Left;
+            txtTelefone.Location = new Point(427, 156);
             txtTelefone.Name = "txtTelefone";
-            txtTelefone.Size = new Size(103, 23);
+            txtTelefone.Size = new Size(117, 27);
             txtTelefone.TabIndex = 3;
+            txtTelefone.KeyPress += txtTelefone_KeyPress;
             // 
             // txtLogradouro
             // 
-            txtLogradouro.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            txtLogradouro.Location = new Point(108, 165);
-            txtLogradouro.Margin = new Padding(3, 2, 3, 2);
+            txtLogradouro.Anchor = AnchorStyles.Left;
+            txtLogradouro.Location = new Point(50, 228);
             txtLogradouro.Name = "txtLogradouro";
-            txtLogradouro.Size = new Size(415, 23);
+            txtLogradouro.Size = new Size(353, 27);
             txtLogradouro.TabIndex = 4;
             // 
             // lblEndereco
@@ -242,30 +242,28 @@
             lblEndereco.AutoSize = true;
             lblEndereco.BackColor = Color.Transparent;
             lblEndereco.Font = new Font("Impact", 10.8F);
-            lblEndereco.Location = new Point(108, 144);
+            lblEndereco.Location = new Point(50, 200);
             lblEndereco.Name = "lblEndereco";
-            lblEndereco.Size = new Size(84, 19);
+            lblEndereco.Size = new Size(96, 22);
             lblEndereco.TabIndex = 24;
             lblEndereco.Text = "Logradouro:";
             lblEndereco.Click += lblEndereco_Click;
             // 
             // txtGenero
             // 
-            txtGenero.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            txtGenero.Location = new Point(353, 109);
-            txtGenero.Margin = new Padding(3, 2, 3, 2);
+            txtGenero.Anchor = AnchorStyles.Left;
+            txtGenero.Location = new Point(246, 156);
             txtGenero.Name = "txtGenero";
-            txtGenero.Size = new Size(93, 23);
+            txtGenero.Size = new Size(106, 27);
             txtGenero.TabIndex = 101;
             txtGenero.TextChanged += txtGenero_TextChanged;
             // 
             // txtBairro
             // 
-            txtBairro.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            txtBairro.Location = new Point(110, 220);
-            txtBairro.Margin = new Padding(3, 2, 3, 2);
+            txtBairro.Anchor = AnchorStyles.Left;
+            txtBairro.Location = new Point(50, 300);
             txtBairro.Name = "txtBairro";
-            txtBairro.Size = new Size(213, 23);
+            txtBairro.Size = new Size(179, 27);
             txtBairro.TabIndex = 102;
             // 
             // label2
@@ -273,19 +271,18 @@
             label2.AutoSize = true;
             label2.BackColor = Color.Transparent;
             label2.Font = new Font("Impact", 10.8F);
-            label2.Location = new Point(110, 199);
+            label2.Location = new Point(50, 272);
             label2.Name = "label2";
-            label2.Size = new Size(50, 19);
+            label2.Size = new Size(59, 22);
             label2.TabIndex = 103;
             label2.Text = "Bairro:";
             // 
             // txtCidade
             // 
-            txtCidade.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            txtCidade.Location = new Point(353, 220);
-            txtCidade.Margin = new Padding(3, 2, 3, 2);
+            txtCidade.Anchor = AnchorStyles.Left;
+            txtCidade.Location = new Point(246, 300);
             txtCidade.Name = "txtCidade";
-            txtCidade.Size = new Size(129, 23);
+            txtCidade.Size = new Size(147, 27);
             txtCidade.TabIndex = 104;
             // 
             // label3
@@ -293,19 +290,18 @@
             label3.AutoSize = true;
             label3.BackColor = Color.Transparent;
             label3.Font = new Font("Impact", 10.8F);
-            label3.Location = new Point(353, 199);
+            label3.Location = new Point(245, 272);
             label3.Name = "label3";
-            label3.Size = new Size(56, 19);
+            label3.Size = new Size(65, 22);
             label3.TabIndex = 105;
             label3.Text = "Cidade:";
             // 
             // txtEstado
             // 
-            txtEstado.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            txtEstado.Location = new Point(505, 220);
-            txtEstado.Margin = new Padding(3, 2, 3, 2);
+            txtEstado.Anchor = AnchorStyles.Left;
+            txtEstado.Location = new Point(427, 300);
             txtEstado.Name = "txtEstado";
-            txtEstado.Size = new Size(124, 23);
+            txtEstado.Size = new Size(117, 27);
             txtEstado.TabIndex = 106;
             // 
             // label4
@@ -313,19 +309,18 @@
             label4.AutoSize = true;
             label4.BackColor = Color.Transparent;
             label4.Font = new Font("Impact", 10.8F);
-            label4.Location = new Point(505, 199);
+            label4.Location = new Point(427, 272);
             label4.Name = "label4";
-            label4.Size = new Size(54, 19);
+            label4.Size = new Size(61, 22);
             label4.TabIndex = 107;
             label4.Text = "Estado:";
             // 
             // txtComplemento
             // 
-            txtComplemento.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            txtComplemento.Location = new Point(293, 278);
-            txtComplemento.Margin = new Padding(3, 2, 3, 2);
+            txtComplemento.Anchor = AnchorStyles.Left;
+            txtComplemento.Location = new Point(52, 372);
             txtComplemento.Name = "txtComplemento";
-            txtComplemento.Size = new Size(113, 23);
+            txtComplemento.Size = new Size(177, 27);
             txtComplemento.TabIndex = 108;
             // 
             // label5
@@ -333,58 +328,60 @@
             label5.AutoSize = true;
             label5.BackColor = Color.Transparent;
             label5.Font = new Font("Impact", 10.8F);
-            label5.Location = new Point(295, 257);
+            label5.Location = new Point(52, 344);
             label5.Name = "label5";
-            label5.Size = new Size(101, 19);
+            label5.Size = new Size(114, 22);
             label5.TabIndex = 109;
             label5.Text = "Complemento:";
             // 
             // txtIDAtendente
             // 
-            txtIDAtendente.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            txtIDAtendente.Location = new Point(400, 311);
-            txtIDAtendente.Margin = new Padding(3, 2, 3, 2);
+            txtIDAtendente.Location = new Point(322, 415);
             txtIDAtendente.Name = "txtIDAtendente";
-            txtIDAtendente.Size = new Size(28, 23);
+            txtIDAtendente.Size = new Size(52, 27);
             txtIDAtendente.TabIndex = 110;
+            txtIDAtendente.KeyPress += txtIDAtendente_KeyPress;
             // 
             // button1
             // 
-            button1.BackColor = Color.Teal;
+            button1.BackColor = Color.DarkRed;
             button1.Cursor = Cursors.Hand;
             button1.Font = new Font("Impact", 9F);
             button1.ForeColor = Color.WhiteSmoke;
-            button1.Location = new Point(307, 493);
+            button1.Location = new Point(52, 698);
+            button1.Margin = new Padding(3, 4, 3, 4);
             button1.Name = "button1";
-            button1.Size = new Size(111, 40);
+            button1.Size = new Size(125, 53);
             button1.TabIndex = 126;
-            button1.Text = "Excluir um aluno";
+            button1.Text = "Excluir";
             button1.UseVisualStyleBackColor = false;
             button1.Click += button1_Click;
             // 
             // btnEditarPlano
             // 
-            btnEditarPlano.BackColor = Color.FromArgb(0, 192, 192);
+            btnEditarPlano.BackColor = Color.Black;
             btnEditarPlano.Cursor = Cursors.Hand;
             btnEditarPlano.Font = new Font("Impact", 9F);
-            btnEditarPlano.ForeColor = Color.Black;
-            btnEditarPlano.Location = new Point(186, 493);
+            btnEditarPlano.ForeColor = Color.White;
+            btnEditarPlano.Location = new Point(417, 637);
+            btnEditarPlano.Margin = new Padding(3, 4, 3, 4);
             btnEditarPlano.Name = "btnEditarPlano";
-            btnEditarPlano.Size = new Size(111, 40);
+            btnEditarPlano.Size = new Size(127, 53);
             btnEditarPlano.TabIndex = 125;
-            btnEditarPlano.Text = "Editar um aluno";
+            btnEditarPlano.Text = "Editar";
             btnEditarPlano.UseVisualStyleBackColor = false;
             btnEditarPlano.Click += btnEditarPlano_Click;
             // 
             // button2
             // 
-            button2.BackColor = Color.FromArgb(0, 64, 64);
+            button2.BackColor = Color.Black;
             button2.Cursor = Cursors.Hand;
             button2.Font = new Font("Impact", 9F);
             button2.ForeColor = Color.WhiteSmoke;
-            button2.Location = new Point(441, 493);
+            button2.Location = new Point(52, 637);
+            button2.Margin = new Padding(3, 4, 3, 4);
             button2.Name = "button2";
-            button2.Size = new Size(111, 40);
+            button2.Size = new Size(205, 53);
             button2.TabIndex = 127;
             button2.Text = "Associar aluno a um plano";
             button2.UseVisualStyleBackColor = false;
@@ -392,18 +389,19 @@
             // 
             // listViewAtendente
             // 
-            listViewAtendente.Location = new Point(229, 350);
+            listViewAtendente.Location = new Point(52, 449);
+            listViewAtendente.Margin = new Padding(3, 4, 3, 4);
             listViewAtendente.Name = "listViewAtendente";
-            listViewAtendente.Size = new Size(278, 119);
+            listViewAtendente.Size = new Size(492, 157);
             listViewAtendente.TabIndex = 128;
             listViewAtendente.UseCompatibleStateImageBehavior = false;
             listViewAtendente.SelectedIndexChanged += listViewAtendente_SelectedIndexChanged;
             // 
             // FormCadastroAluno
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(796, 669);
+            ClientSize = new Size(600, 769);
             Controls.Add(listViewAtendente);
             Controls.Add(button2);
             Controls.Add(button1);
@@ -435,7 +433,6 @@
             Controls.Add(panel1);
             FormBorderStyle = FormBorderStyle.None;
             Icon = (Icon)resources.GetObject("$this.Icon");
-            Margin = new Padding(3, 2, 3, 2);
             Name = "FormCadastroAluno";
             Text = "Cadastro Aluno";
             Load += FormCadastroAluno_Load;

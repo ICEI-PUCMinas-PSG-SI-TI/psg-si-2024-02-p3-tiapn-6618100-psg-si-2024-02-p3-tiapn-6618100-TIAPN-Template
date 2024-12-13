@@ -196,5 +196,24 @@ namespace BodyShape_TI.Forms
             this.Close();
         }
 
+        private void txtPlanoID_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            Util.PermitirSomenteNumeros(e);
+        }
+
+        private void txtAlunoID_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            Util.PermitirSomenteNumeros(e);
+        }
+
+        private void txtDataInicioPlano_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            Util.PermitirSomenteNumeros(e);
+        }
+
+        private void txtDataFimPlano_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            Util.PermitirSomenteNumeros(e);
+        }
     }
 }

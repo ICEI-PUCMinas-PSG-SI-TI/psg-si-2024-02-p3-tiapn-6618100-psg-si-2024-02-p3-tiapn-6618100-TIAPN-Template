@@ -49,6 +49,17 @@ namespace BodyShape_TI.Entities
             }
         }
 
+        public static void MensagemFechamento(Form formulario)
+        {
+            if (MessageBox.Show("Caso possua informações não salvas, ao fechar esta aba, todas as alterações serão perdidas.\n\nDeseja realmente fechar esta tela?",
+                     "Confirmação",
+                     MessageBoxButtons.YesNo,
+                     MessageBoxIcon.Warning) == DialogResult.Yes)
+            {
+                formulario.Close();
+            }
+        }
+
         #endregion
     }
 }

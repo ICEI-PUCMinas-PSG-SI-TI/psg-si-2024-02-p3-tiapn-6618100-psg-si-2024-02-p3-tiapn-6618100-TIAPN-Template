@@ -22,15 +22,12 @@ namespace BS_Projeto
 
         private void lblSair_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Util.MensagemFechamento(this);
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Deseja realmente cancelar?", "Confirmação", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-            {
-                this.Close();
-            }
+            Util.MensagemFechamento(this);
         }
 
         //INSERT
@@ -175,6 +172,21 @@ namespace BS_Projeto
             {
                 txtIDAtendente.Text = item.SubItems[0].Text;
             }
+        }
+
+        private void txtDataNasc_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            Util.PermitirSomenteNumeros(e);
+        }
+
+        private void txtIDAtendente_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            Util.PermitirSomenteNumeros(e);
+        }
+
+        private void txtTelefone_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            Util.PermitirSomenteNumeros(e);
         }
     }
 }

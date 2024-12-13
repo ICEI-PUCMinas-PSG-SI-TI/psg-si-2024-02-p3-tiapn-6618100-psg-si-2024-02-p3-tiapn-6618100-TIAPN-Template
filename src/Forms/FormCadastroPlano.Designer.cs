@@ -44,16 +44,16 @@
             // 
             // btnEditarPlano
             // 
-            btnEditarPlano.BackColor = Color.FromArgb(0, 192, 192);
+            btnEditarPlano.BackColor = Color.Black;
             btnEditarPlano.Cursor = Cursors.Hand;
             btnEditarPlano.Font = new Font("Impact", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnEditarPlano.ForeColor = Color.Black;
+            btnEditarPlano.ForeColor = Color.White;
             btnEditarPlano.Location = new Point(59, 149);
             btnEditarPlano.Margin = new Padding(3, 4, 3, 4);
             btnEditarPlano.Name = "btnEditarPlano";
             btnEditarPlano.Size = new Size(144, 43);
             btnEditarPlano.TabIndex = 119;
-            btnEditarPlano.Text = "Editar um plano";
+            btnEditarPlano.Text = "Editar";
             btnEditarPlano.UseVisualStyleBackColor = false;
             btnEditarPlano.Click += btnEditarPlano_Click;
             // 
@@ -123,6 +123,7 @@
             lblSair.Size = new Size(22, 21);
             lblSair.TabIndex = 2;
             lblSair.Text = "X";
+            lblSair.Click += lblSair_Click;
             // 
             // lblTitulo
             // 
@@ -145,7 +146,7 @@
             // 
             // button1
             // 
-            button1.BackColor = Color.FromArgb(0, 64, 64);
+            button1.BackColor = Color.DarkRed;
             button1.Cursor = Cursors.Hand;
             button1.Font = new Font("Impact", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             button1.ForeColor = Color.White;
@@ -154,7 +155,7 @@
             button1.Name = "button1";
             button1.Size = new Size(143, 43);
             button1.TabIndex = 124;
-            button1.Text = "Excluir um plano";
+            button1.Text = "Excluir";
             button1.UseVisualStyleBackColor = false;
             button1.Click += button1_Click;
             // 
