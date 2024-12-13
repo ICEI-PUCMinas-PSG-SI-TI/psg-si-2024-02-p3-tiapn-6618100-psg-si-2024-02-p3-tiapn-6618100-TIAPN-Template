@@ -16,7 +16,7 @@ namespace BodyShape_TI.Forms
     {
 
         private MySqlConnection Conexao;
-        private string data_source = "datasource=localhost;username=root;password=; database=mydb";
+        private string data_source = "server=127.0.0.1;user=root;database=mydb;password=Mvdar@1324;";
 
         private int? id_bioimpedancia_selecionada = null;
 

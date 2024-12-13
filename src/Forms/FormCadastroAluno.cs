@@ -95,6 +95,46 @@ namespace BS_Projeto
         private void FormCadastroAluno_Load(object sender, EventArgs e)
         {
             connection = new ConexaoBD();
+            CarregarListViewAtendentes();
+        }
+
+        private void CarregarListViewAtendentes()
+        {
+            listViewAtendente.View = View.Details;
+            listViewAtendente.LabelEdit = true;
+            listViewAtendente.AllowColumnReorder = true;
+            listViewAtendente.FullRowSelect = true;
+            listViewAtendente.GridLines = true;
+
+            try
+            {
+                string query = "SELECT id, atividade FROM tbl_Atendente";
+                using (MySqlCommand command = new MySqlCommand(query, connection.IniciaConexaoBD()))
+                {
+                    connection.conexao.Open();
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        listViewAtendente.Items.Clear(); // Limpa o ListView
+                        listViewAtendente.Columns.Clear();
+
+                        // Adiciona colunas ao ListView
+                        listViewAtendente.Columns.Add("id", 50, HorizontalAlignment.Center);
+                        listViewAtendente.Columns.Add("atividade", 100, HorizontalAlignment.Center);
+
+                        while (reader.Read())
+                        {
+                            ListViewItem item = new ListViewItem(reader["id"].ToString());
+                            item.SubItems.Add(reader["atividade"].ToString());
+                            listViewAtendente.Items.Add(item);
+                        }
+                    }
+                    connection.conexao.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao carregar os planos: {ex.Message}");
+            }
         }
 
         private void lblEndereco_Click(object sender, EventArgs e)
@@ -120,6 +160,21 @@ namespace BS_Projeto
             FormEditarAluno formEditarAluno = new FormEditarAluno();
 
             formEditarAluno.ShowDialog();
+        }
+
+        private void txtGenero_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void listViewAtendente_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ListView.SelectedListViewItemCollection itens_selecionados = listViewAtendente.SelectedItems;
+
+            foreach (ListViewItem item in itens_selecionados)
+            {
+                txtIDAtendente.Text = item.SubItems[0].Text;
+            }
         }
     }
 }
