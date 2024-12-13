@@ -101,8 +101,6 @@ namespace BodyShape_TI.Forms
         {
             try
             {
-
-
                 Conexao = new MySqlConnection(data_source);
 
 
@@ -283,15 +281,9 @@ namespace BodyShape_TI.Forms
 
 
                 reset();
-
-
-
-
-
             }
             catch (MySqlException ex)
             {
-
                 MessageBox.Show("Erro " + ex.Number + " ocorreu: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
@@ -582,12 +574,63 @@ namespace BodyShape_TI.Forms
 
         private void btn_Cancelar_Click(object sender, EventArgs e)
         {
-            this.Close();
+            MensagemFechamento();
         }
 
         private void lblSair_Click_1(object sender, EventArgs e)
         {
-            this.Close();
+            MensagemFechamento();
+        }
+
+        private void MensagemFechamento()
+        {
+            if (MessageBox.Show("Caso possua informações não salvas, ao fechar esta aba, todas as alterações serão perdidas.\n\nDeseja realmente fechar esta tela?",
+                     "Confirmação",
+                     MessageBoxButtons.YesNo,
+                     MessageBoxIcon.Warning) == DialogResult.Yes)
+            {
+                this.Close();
+            }
+        }
+
+        private void txt_gordura_Leave(object sender, EventArgs e)
+        {
+            txt_gordura.Text = Util.ConverterParaDecimal(txt_gordura.Text);
+        }
+
+        private void txt_Peso_Leave(object sender, EventArgs e)
+        {
+            txt_Peso.Text = Util.ConverterParaDecimal(txt_Peso.Text);
+        }
+
+        private void txt_Altura_Leave(object sender, EventArgs e)
+        {
+            txt_Altura.Text = Util.ConverterParaDecimal(txt_Altura.Text);
+        }
+
+        private void txt_Massa_Magra_Leave(object sender, EventArgs e)
+        {
+            txt_Massa_Magra.Text = Util.ConverterParaDecimal(txt_Massa_Magra.Text);
+        }
+
+        private void txt_gordura_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            Util.PermitirSomenteNumeros(e);
+        }
+
+        private void txt_Peso_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            Util.PermitirSomenteNumeros(e);
+        }
+
+        private void txt_Altura_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            Util.PermitirSomenteNumeros(e);
+        }
+
+        private void txt_Massa_Magra_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            Util.PermitirSomenteNumeros(e);
         }
     }
 }

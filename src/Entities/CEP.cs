@@ -13,7 +13,7 @@ namespace BodyShape_TI.Entities
         {
             try
             {
-                if (!Validacao.validarCEP(cep))
+                if (!Util.validarCEP(cep))
                 {
                     throw new ArgumentException("CEP inválido.");
                 }
