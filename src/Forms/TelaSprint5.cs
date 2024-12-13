@@ -11,9 +11,9 @@ using System.Windows.Forms;
 
 namespace BodyShape_TI.Forms
 {
-    public partial class TelaSprint4 : Form
+    public partial class TelaSprint5 : Form
     {
-        public TelaSprint4()
+        public TelaSprint5()
         {
             InitializeComponent();
         }
@@ -24,8 +24,8 @@ namespace BodyShape_TI.Forms
 
         //private void OP1_Click(object sender, EventArgs e)
         //{
-            //FormCadastroAluno formCadastroAluno = new FormCadastroAluno();
-            //formCadastroAluno.ShowDialog();
+        //FormCadastroAluno formCadastroAluno = new FormCadastroAluno();
+        //formCadastroAluno.ShowDialog();
         //}
 
         private void pictureBox1_Click(object sender, EventArgs e)
@@ -70,6 +70,59 @@ namespace BodyShape_TI.Forms
         {
             FormCadastroAlunoPlano formCadastroAlunoPlano = new FormCadastroAlunoPlano();
             formCadastroAlunoPlano.ShowDialog();
+        }
+
+        private void pnlnavegacao_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void lblSair_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void pictureBox1_Click_1(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            FormCadastroFicha formCadastroFicha = new FormCadastroFicha();
+            formCadastroFicha.ShowDialog();
+        }
+
+        private void panel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void panel4_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            FormCadastroProfissional formCadastroProfissional = new FormCadastroProfissional();
+            formCadastroProfissional.ShowDialog();
+        }
+
+        private void panel6_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            FormCadastroBioimpedância formCadastroBioimpedância = new FormCadastroBioimpedância();
+            formCadastroBioimpedância.ShowDialog();
         }
     }
 }

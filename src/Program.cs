@@ -16,7 +16,7 @@ namespace BS_Projeto
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new TelaSprint4());
+            Application.Run(new TelaSprint5());
 
             //BodyShape_TI.Forms.FormCadastroPlano -> Cadastro de plano
             //BodyShape_TI.Forms.FormCadastroAlunoPlano -> Associar aluno a plano

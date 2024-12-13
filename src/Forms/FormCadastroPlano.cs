@@ -68,10 +68,7 @@ namespace BodyShape_TI.Forms
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Deseja realmente cancelar?", "Confirmação", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-            {
-                this.Close();
-            }
+            Util.MensagemFechamento(this);
         }
 
         // UPDATE
@@ -91,6 +88,11 @@ namespace BodyShape_TI.Forms
             FormExcluirPlano formExcluirPlano = new FormExcluirPlano();
 
             formExcluirPlano.ShowDialog();
+        }
+
+        private void lblSair_Click(object sender, EventArgs e)
+        {
+            Util.MensagemFechamento(this);
         }
     }
 }

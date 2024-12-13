@@ -35,6 +35,7 @@
             panel1 = new Panel();
             lblSair = new Label();
             lblTitulo = new Label();
+            listViewAluno = new ListView();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -44,7 +45,7 @@
             botaoExcluir.Cursor = Cursors.Hand;
             botaoExcluir.Font = new Font("Impact", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             botaoExcluir.ForeColor = SystemColors.ButtonHighlight;
-            botaoExcluir.Location = new Point(468, 125);
+            botaoExcluir.Location = new Point(497, 274);
             botaoExcluir.Name = "botaoExcluir";
             botaoExcluir.Size = new Size(111, 38);
             botaoExcluir.TabIndex = 151;
@@ -55,10 +56,10 @@
             // txtAlunoID
             // 
             txtAlunoID.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            txtAlunoID.Location = new Point(325, 69);
+            txtAlunoID.Location = new Point(475, 44);
             txtAlunoID.Margin = new Padding(3, 2, 3, 2);
             txtAlunoID.Name = "txtAlunoID";
-            txtAlunoID.Size = new Size(149, 23);
+            txtAlunoID.Size = new Size(37, 23);
             txtAlunoID.TabIndex = 149;
             txtAlunoID.TextChanged += txtPlanoID_TextChanged;
             // 
@@ -79,7 +80,7 @@
             btnCancelar.Cursor = Cursors.Hand;
             btnCancelar.Font = new Font("Impact", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnCancelar.ForeColor = SystemColors.ButtonHighlight;
-            btnCancelar.Location = new Point(221, 125);
+            btnCancelar.Location = new Point(212, 274);
             btnCancelar.Name = "btnCancelar";
             btnCancelar.Size = new Size(111, 38);
             btnCancelar.TabIndex = 148;
@@ -121,11 +122,21 @@
             lblTitulo.TabIndex = 1;
             lblTitulo.Text = "Excluir Aluno";
             // 
+            // listViewAluno
+            // 
+            listViewAluno.Location = new Point(240, 85);
+            listViewAluno.Name = "listViewAluno";
+            listViewAluno.Size = new Size(330, 157);
+            listViewAluno.TabIndex = 152;
+            listViewAluno.UseCompatibleStateImageBehavior = false;
+            listViewAluno.SelectedIndexChanged += listView1_SelectedIndexChanged;
+            // 
             // FormExcluirAluno
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(listViewAluno);
             Controls.Add(botaoExcluir);
             Controls.Add(txtAlunoID);
             Controls.Add(label2);
@@ -149,5 +160,6 @@
         private Panel panel1;
         private Label lblSair;
         private Label lblTitulo;
+        private ListView listViewAluno;
     }
 }

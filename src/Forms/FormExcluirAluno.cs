@@ -18,6 +18,7 @@ namespace BodyShape_TI.Forms
         public FormExcluirAluno()
         {
             InitializeComponent();
+            
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -25,6 +26,65 @@ namespace BodyShape_TI.Forms
             if (MessageBox.Show("Deseja realmente cancelar?", "Confirmação", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 this.Close();
+            }
+        }
+
+        private void CarregarListViewAluno()
+        {
+            listViewAluno.View = View.Details;
+            listViewAluno.LabelEdit = true;
+            listViewAluno.AllowColumnReorder = true;
+            listViewAluno.FullRowSelect = true;
+            listViewAluno.GridLines = true;
+
+            try
+            {
+                string query = "SELECT id, nome, data_nascimento, sexo, logradouro, numero, complemento, bairro, cidade, estado, telefone, tbl_Atendente_tbl_Funcionario_id FROM tbl_Aluno";
+                using (MySqlCommand command = new MySqlCommand(query, connection.IniciaConexaoBD()))
+                {
+                    connection.conexao.Open();
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        listViewAluno.Items.Clear(); // Limpa o ListView
+                        listViewAluno.Columns.Clear();
+
+                        // Adiciona colunas ao ListView para todos os campos da consulta
+                        listViewAluno.Columns.Add("ID", 50, HorizontalAlignment.Center);
+                        listViewAluno.Columns.Add("Nome", 150, HorizontalAlignment.Center);
+                        listViewAluno.Columns.Add("Data Nascimento", 100, HorizontalAlignment.Center);
+                        listViewAluno.Columns.Add("Sexo", 50, HorizontalAlignment.Center);
+                        listViewAluno.Columns.Add("Logradouro", 150, HorizontalAlignment.Center);
+                        listViewAluno.Columns.Add("Número", 70, HorizontalAlignment.Center);
+                        listViewAluno.Columns.Add("Complemento", 150, HorizontalAlignment.Center);
+                        listViewAluno.Columns.Add("Bairro", 100, HorizontalAlignment.Center);
+                        listViewAluno.Columns.Add("Cidade", 100, HorizontalAlignment.Center);
+                        listViewAluno.Columns.Add("Estado", 50, HorizontalAlignment.Center);
+                        listViewAluno.Columns.Add("Telefone", 100, HorizontalAlignment.Center);
+                        listViewAluno.Columns.Add("Atendente", 100, HorizontalAlignment.Center);
+
+                        while (reader.Read())
+                        {
+                            ListViewItem item = new ListViewItem(reader["id"].ToString());
+                            item.SubItems.Add(reader["nome"].ToString());
+                            item.SubItems.Add(Convert.ToDateTime(reader["data_nascimento"]).ToString("dd/MM/yyyy"));
+                            item.SubItems.Add(reader["sexo"].ToString());
+                            item.SubItems.Add(reader["logradouro"].ToString());
+                            item.SubItems.Add(reader["numero"].ToString());
+                            item.SubItems.Add(reader["complemento"].ToString());
+                            item.SubItems.Add(reader["bairro"].ToString());
+                            item.SubItems.Add(reader["cidade"].ToString());
+                            item.SubItems.Add(reader["estado"].ToString());
+                            item.SubItems.Add(reader["telefone"].ToString());
+                            item.SubItems.Add(reader["tbl_Atendente_tbl_Funcionario_id"].ToString());
+                            listViewAluno.Items.Add(item);
+                        }
+                    }
+                    connection.conexao.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao carregar os alunos: {ex.Message}");
             }
         }
 
@@ -110,11 +170,22 @@ namespace BodyShape_TI.Forms
         private void FormExcluirAluno_Load(object sender, EventArgs e)
         {
             connection = new ConexaoBD();
+            CarregarListViewAluno();
         }
 
         private void txtPlanoID_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ListView.SelectedListViewItemCollection itens_selecionados = listViewAluno.SelectedItems;
+
+            foreach (ListViewItem item in itens_selecionados)
+            {
+                txtAlunoID.Text = item.SubItems[0].Text;
+            }
         }
     }
 }
