@@ -5,7 +5,7 @@ Caso não consiga acessar por aqui, o vídeo também pode ser acessado pelo link
 
 ## Slides
 
-![Slides - Sprint 5](Sprint5Slides.pdf)
+![Slides - Sprint 5](Sprint5-Slides.pdf)
 
 ## Vídeo
 
