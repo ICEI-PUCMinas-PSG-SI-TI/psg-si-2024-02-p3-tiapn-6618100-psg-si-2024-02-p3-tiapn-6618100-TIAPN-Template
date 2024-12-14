@@ -75,6 +75,10 @@ Os principais aspectos da solução são:
 
 ### 3.3. Modelagem dos processos
 
-[PROCESSO 1 - Nome do Processo](./processos/processo-1-nome-do-processo.md "Detalhamento do Processo 1.")
+[PROCESSO 1 - Cadastro do Aluno](./processos/Processo1-CadastroAluno.md)
 
-[PROCESSO 2 - Nome do Processo](./processos/processo-2-nome-do-processo.md "Detalhamento do Processo 2.")
+[PROCESSO 2 - Cadastro da Ficha do Aluno](./processos/Processo2-CadastroFichaAluno.md)
+
+[PROCESSO 3 - Cadastro da Bioimpedância](./processos/Processo3-Bioimpedancia.md)
+
+[PROCESSO 4 - Cadastro do Profissional](./processos/Processo4-CadastroProfissional.md)
