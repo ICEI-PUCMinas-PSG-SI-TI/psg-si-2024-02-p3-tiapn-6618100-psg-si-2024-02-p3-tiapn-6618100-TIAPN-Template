@@ -3,34 +3,46 @@
 
 <span style="color:red">Pré-requisitos: <a href="4-Projeto-Solucao.md"> Projeto da Solução</a></span>
 
-_Visão geral da interação do usuário por meio das telas do sistema. Apresente as principais interfaces da plataforma._
+A seguir, estão descritas as telas e instruções para utilização do software:
+
 
 ## 6.1. Tela principal do sistema
 
-_Descrição da tela principal do sistema._
+Ao executar o programa, a tela inicial será apresentada ao usuário.
 
-[`Tela principal do sistema`](images/)
-
-
-## 6.2. Telas do processo 1
-
-_Descrição da tela relativa à atividade 1._
-
-[`Tela da atividade 1`](images/)
-
-_Descrição da tela relativa à atividade 2._
-
-[`Tela da atividade 2`](images/)
+![`Tela principal do sistema`](./images/Tela-Inicial.png)
 
 
-## 6.3. Telas do processo 2
+## 6.2. Cadastro de Aluno
 
-_Descrição da tela relativa à atividade 1._
+Para cadastrar um aluno, o usuário deverá clicar no botão “Cadastrar Aluno” na tela inicial, e então, uma nova janela será aberta para que os dados do aluno sejam inseridos.
+Assim que inserir os dados corretamente, o usuário deve clicar no botão “Salvar” para concluir a inserção do aluno no banco de dados.
 
-[`Tela da atividade 1`](images/)
 
-_Descrição da tela relativa à atividade 2._
+![`Tela principal do sistema`](./images/Tela-CadastroAluno.png)
 
-[`Tela da atividade 2`](images/)
+As telas a seguir compreendem a edição e exclusão do aluno, que pode ser consultado através da tabela disponibilizada na tela, ou pesquisando pelo ID.
+
+![`Tela principal do sistema`](./images/Tela-EditarAluno.png)
+
+![`Tela principal do sistema`](./images/Tela-ExcluirAluno.png)
+
+
+## 6.3. Cadastro de Plano
+
+Para cadastrar um plano, o funcionário deve clicar em “Cadastrar plano” e digitar as informações necessárias nos campos indicados. Na mesma tela, ele pode salvar, editar, ou excluir um plano clicando nos respectivos botões.
+
+![`Tela principal do sistema`](./images/Tela-CadastroPlano.png)
+
+![`Tela principal do sistema`](./images/Tela-EditarPlano.png)
+
+![`Tela principal do sistema`](./images/Tela-ExcluirPlano.png)
+
+## 6.3. Cadastro de Bioimpedância
+
+Na tela referente à bioimpedância, o funcionário poderá cadastrar as medidas do aluno: gordura, peso, altura, massa magra, ID do aluno, ID do educador físico, ID do atendente. Essas informações podem ser consultadas, editadas e excluídas na mesma tela
+
+![`Tela principal do sistema`](./images/Tela-Bioimpedancia.png)
+
 
 

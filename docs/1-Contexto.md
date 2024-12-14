@@ -1,46 +1,38 @@
 # Introdução
 
-Texto descritivo com a visão geral do projeto abordado. Inclui o contexto, o problema, os objetivos, a justificativa e o público-alvo do projeto.
+O interesse da população por academias tem crescido exponencialmente em todo o Brasil, por diversos motivos, como estética, melhora da qualidade de vida. Segundo dados do International Health, Racquet & Sportclub  Association (IHRSA), o número de academias no Brasil de 2006 até 2019 passou de 7.500 para 34.509, com cerca de 9,6 milhões de praticantes e faturamento em torno de 2,1 bilhões de dólares (CAMPOS e PESSOA, 2022).
+Com o aumento do número de pessoas que aderiram à prática de atividade física no seu cotidiano, os gestores necessitam pensar e implementar estratégias para manter os clientes satisfeitos, e os Sistemas de Informação (SI) podem ajudar nisso, automatizando seus processos (RIBEIRO; SOUZA; OLIVEIRA, 2020).
+A implementação de um SI tem como benefício propiciar o aumento na agilidade do atendimento ao cliente, além de ajudar tais empresas a manterem a competitividade no mercado, pois mantém a empresa organizada, fornece informações rápidas e atualizadas para uma melhor tomada de decisão (AIRES; RIBEIRO; ORLOVSKI, 2014).
+Além disso, torna-se mais fácil elaborar as rotinas de treinamento, fazer avaliação física, realizar o controle do financeiro entre outros diversos processos que podem ser agilizados, o que facilita o trabalho dos funcionários, e deixam os clientes mais satisfeitos (AIRES; RIBEIRO; ORLOVSKI, 2014).
+Diante do exposto, e tendo em vista que gerir uma academia é um processo delicado, que envolve a coordenação de diversos aspectos como o controle de matrículas, agendamento de aulas, gestão de professores e instrutores, entre outros, pensou-se em elaborar um sistema de gerenciamento de academia.
+
 
 ## Problema
-Nesse momento você deve apresentar o problema que a sua aplicação deve  resolver. No entanto, não é a hora de comentar sobre a aplicação.
 
-Descreva também o contexto em que essa aplicação será usada, se  houver: empresa, tecnologias, etc. Novamente, descreva apenas o que de  fato existir, pois ainda não é a hora de apresentar requisitos  detalhados ou projetos.
-
-Nesse momento, o grupo pode optar por fazer uso  de ferramentas como Design Thinking, que permite um olhar de ponta a ponta para o problema.
-
-> **Links Úteis**:
-> - [Objetivos, Problema de pesquisa e Justificativa](https://medium.com/@versioparole/objetivos-problema-de-pesquisa-e-justificativa-c98c8233b9c3)
-> - [Matriz Certezas, Suposições e Dúvidas](https://medium.com/educa%C3%A7%C3%A3o-fora-da-caixa/matriz-certezas-suposi%C3%A7%C3%B5es-e-d%C3%BAvidas-fa2263633655)
-> - [Brainstorming](https://www.euax.com.br/2018/09/brainstorming/)
+No contexto atual, estamos falando de empresas que ainda não utilizam nenhum sistema para controlar de forma otimizada seus dados. Alguns dos problemas que podem decorrer deste fato são:
+- Falta de controle e perda de dados
+- Acessos não rastreáveis dos dados
+- Perda de tempo e agilidade ao anotar fisicamente informações ou escrever em planilhas simples
 
 ## Objetivos
 
-Aqui você deve descrever os objetivos do trabalho indicando que o objetivo geral é desenvolver um software para solucionar o problema apresentado acima. 
+Objetivo Geral:
+Desenvolver um sistema integrado para o cadastro de alunos de uma rede de academias de ginástica, permitindo que os funcionários realizem o registro de procedimentos admissionais, como a bioimpedância, e possibilitando o controle e gerenciamento eficiente dos dados dos alunos.
 
-Apresente também alguns (pelo menos 2) objetivos específicos dependendo de onde você vai querer concentrar a sua prática investigativa, ou como você vai aprofundar no seu trabalho.
- 
-> **Links Úteis**:
-> - [Objetivo geral e objetivo específico: como fazer e quais verbos utilizar](https://blog.mettzer.com/diferenca-entre-objetivo-geral-e-objetivo-especifico/)
+Objetivos Específicos:
+1. Desenvolver uma interface de usuário que permita o login e a execução de funções específicas para os funcionários da rede.
+2. Criar funcionalidades de cadastro que integrem os dados dos alunos com outros sistemas da academia, garantindo a consistência e a acessibilidade das informações, incluindo o plano que o aluno possui na rede.
+3. Implementar o cadastro de educadores físicos para melhorar o controle e o gerenciamento das escalas de trabalho, levando em consideração a disponibilidade e o monitoramento dos profissionais.
+4. Adicionar o registro de exames de bioimpedância no perfil do aluno, após a avaliação realizada por um profissional qualificado. Esse profissional terá acesso ao sistema exclusivamente para inserir esses dados nos perfis dos alunos já cadastrados.
+5. Permitir a visualização das fichas dos alunos, contendo tanto as informações pessoais quanto os planos de exercícios criados de forma personalizada para cada um. A criação de fichas será uma função exclusiva dos educadores físicos.
 
 ## Justificativa
 
-Descreva a importância ou a motivação para trabalhar com esta aplicação que você escolheu. Indique as razões pelas quais você escolheu seus objetivos específicos ou as razões para aprofundar em certos aspectos do software.
+Considerando a necessidade do cliente por um sistema que ofereça informações concisas e uma usabilidade flexível, o desenvolvimento deste sistema é justificado por sua capacidade de centralizar e facilitar o controle e cadastro dos alunos. Além disso, o sistema permitirá a inserção, alteração e exclusão de informações persistentes, incluindo dados de bioimpedância, assegurando o acompanhamento contínuo dos alunos enquanto frequentadores do espaço.
 
-O grupo de trabalho pode fazer uso de questionários, entrevistas e dados estatísticos, que podem ser apresentados, com o objetivo de esclarecer detalhes do problema que será abordado pelo grupo.
+A principal contribuição do sistema é a mitigação do trabalho manual e a melhoria no controle dos dados dos alunos, proporcionando um gerenciamento eficiente e um acesso rápido às informações sempre que necessário.
 
-> **Links Úteis**:
-> - [Como montar a justificativa](https://guiadamonografia.com.br/como-montar-justificativa-do-tcc/)
 
 ## Público-Alvo
 
-Descreva quem serão as pessoas que usarão a sua aplicação indicando os diferentes perfis. O objetivo aqui não é definir quem serão os clientes ou quais serão os papéis dos usuários na aplicação. A ideia é, dentro do possível, conhecer um pouco mais sobre o perfil dos usuários: conhecimentos prévios, relação com a tecnologia, relações
-hierárquicas, etc.
-
-Adicione informações sobre o público-alvo por meio de uma descrição textual, diagramas de personas e mapa de stakeholders.
-
-> **Links Úteis**:
-> - [Público-alvo](https://blog.hotmart.com/pt-br/publico-alvo/)
-> - [Como definir o público alvo](https://exame.com/pme/5-dicas-essenciais-para-definir-o-publico-alvo-do-seu-negocio/)
-> - [Público-alvo: o que é, tipos, como definir seu público e exemplos](https://klickpages.com.br/blog/publico-alvo-o-que-e/)
-> - [Qual a diferença entre público-alvo e persona?](https://rockcontent.com/blog/diferenca-publico-alvo-e-persona/)
+O público alvo principal da aplicação são as academias de pequeno e médio porte

@@ -1,22 +1,18 @@
 # 5. Planejamento do Projeto
 
-> Aqui será feito o gerenciamento das tarefas de implementação do projeto.
 
 ## 5.1. Divisão de Papéis
 
-> Apresente a divisão de papéis entre os membros do grupo em cada sprint. O desejável é que, em cada sprint, o aluno assuma papéis diferentes na disciplina. Siga o modelo do exemplo abaixo:
+A organização do grupo foi utilizada em todas as sprints
 
 ### Sprint 1
-- _Scrum master_: AlunaX
-- Protótipos: AlunoY
-- Testes: AlunoK
-- Documentação: AlunaZ
+- _Scrum master_: Ana Beatriz Costa Viana
+- Protótipos: Ana Beatriz Costa Viana e Gustavo Henrique Silva de Oliveira
+- Codificação: Ana Beatriz Costa Viana, Gustavo de Assis Vilarino, Gustavo Henrique Silva de Oliveira e Karina Oliveira Bicalho de Almeida
+- Testes: Gustavo de Assis Vilarino e Karina Oliveira Bicalho de Almeida
+- Documentação: Ana Beatriz Costa Viana
 
-### Sprint 2
-- _Scrum master_: AlunaY
-- Desenvolvedor _front-end_: AlunoX
-- Desenvolvedor _back-end_: AlunoK
-- Testes: AlunaZ
+
 
 ## 5.1. Quadro de tarefas
 
@@ -24,37 +20,74 @@
 
 ## Sprint 1
 
-Atualizado em: 21/04/2024
+Relatório – seção “1. Introdução”
+Relatório – seção “2. Participantes do processo”
 
-| Responsável   | Tarefa/Requisito | Iniciado em    | Prazo      | Status | Terminado em    |
-| :----         |    :----         |      :----:    | :----:     | :----: | :----:          |
-| AlunaX        | Introdução | 01/02/2024     | 07/02/2024 | ✔️    | 05/01/2005      |
-| AlunaZ        | Objetivos    | 03/02/2024     | 10/02/2024 | 📝    |                 |
-| AlunoY        | Histórias de usuário  | 01/01/2024     | 07/01/2005 | ⌛     |                 |
-| AlunoK        | Personas 1  |    01/01/2024        | 12/02/2005 | ❌    |       |
+| Responsável                         | Tarefa/Requisito           | Iniciado em    | Prazo      | Status | Terminado em    |
+| :----                               |    :----                   |      :----:    | :----:     | :----: | :----:          |
+| Ana Beatriz Costa Viana             | Introdução e participantes | 06/09/2024     | 13/09/2024 | ✔️    | 13/09/2024       |
+| Gustavo de Assis Vilarino           | Objetivos                  | 06/09/2024     | 13/09/2024 | ✔️    | 13/09/2024       |
+| Gustavo Henrique Silva de Oliveira  | Requisitos                 | 06/09/2024     | 13/09/2024 | ✔️    | 13/09/2024       |
+| Karina Oliveira Bicalho de Almeida  | Justificativa              | 06/09/2024     | 13/09/2024 | ✔️    | 13/09/2024       |
 
 ## Sprint 2
 
-Atualizado em: 21/04/2024
+3. Modelagem do Processo de Negócio
+3.1. Modelagem da situação atual (Modelagem AS IS)
+3.2. Análise dos processos
+3.3.  Desenho dos Processos (TO BE) 
 
-| Responsável   | Tarefa/Requisito | Iniciado em    | Prazo      | Status | Terminado em    |
-| :----         |    :----         |      :----:    | :----:     | :----: | :----:          |
-| AlunaX        | Home-Page        | 01/02/2024     | 07/03/2024 | ✔️    | 05/01/2005      |
-| AlunaZ        | CSS Unificado    | 03/02/2024     | 10/03/2024 | 📝    |                 |
-| AlunoY        | Página de login  | 01/02/2024     | 07/03/2024 | ⌛     |                 |
-| AlunoK        | Script de login  |  01/01/2024    | 12/03/2024 | ❌    |       |
+| Responsável                         | Tarefa/Requisito           | Iniciado em    | Prazo      | Status | Terminado em    |
+| :----                               |    :----                   |      :----:    | :----:     | :----: | :----:          |
+| Ana Beatriz Costa Viana             | Cadastro de Profissional   | 04/10/2024     | 07/10/2024 | ✔️    | 07/10/2024       |
+| Gustavo de Assis Vilarino           | Cadastro de Bioimpedancia  | 04/10/2024     | 07/10/2024 | ✔️    | 07/10/2024       |
+| Gustavo Henrique Silva de Oliveira  | Cadastro de Aluno          | 04/10/2024     | 07/10/2024 | ✔️    | 07/10/2024       |
+| Karina Oliveira Bicalho de Almeida  | Cadastro de Ficha          | 04/10/2024     | 07/10/2024 | ✔️    | 07/10/2024       |
 
+## Sprint 3
+
+Relatório – sessão “Protótipo de telas”
+Relatório – sessão “Diagrama de Entidade-Relacionamento”
+Relatório – sessão “Tecnologias e arquitetura da aplicação”
+
+| Responsável                         | Tarefa/Requisito           | Iniciado em    | Prazo      | Status | Terminado em      |
+| :----                               |    :----                   |      :----:    | :----:     | :----: | :----:            |
+| Ana Beatriz Costa Viana             | Protótipos                 | 25/10/2024     | 01/11/2024  | ✔️    | 01/11/2024        |
+| Gustavo de Assis Vilarino           | Protótipos                 | 25/10/2024     | 01/11/2024  | ✔️    | 01/11/2024        |
+| Gustavo Henrique Silva de Oliveira  | Modelagem de dados         | 25/10/2024     | 01/11/2024  | ✔️    | 01/11/2024        |
+| Karina Oliveira Bicalho de Almeida  | Modelagem de dados         | 25/10/2024     | 01/11/2024  | ✔️    | 01/11/2024        |
+
+## Sprint 4
+
+Tela inicial
+Implementação da solução (1ª fase)  - Mínimo de 2 a 3 processos completos, inclui front-end e back-end.
+Adicionar o link do GitHub
+
+| Responsável                         | Tarefa/Requisito   | Iniciado em    | Prazo      | Status | Terminado em      |
+| :----                               |    :----           |      :----:    | :----:     | :----: | :----:            |
+| Ana Beatriz Costa Viana             | Ficha              | 10/10/2024     | 22/11/2024  | ⌛    | 22/11/2024        |
+| Gustavo de Assis Vilarino           | Bioimpedancia      | 10/10/2024     | 22/11/2024  | ✔️    | 22/11/2024        |
+| Gustavo Henrique Silva de Oliveira  | Alunos             | 10/10/2024     | 22/11/2024  | ✔️    | 22/11/2024        |
+| Karina Oliveira Bicalho de Almeida  | Planos             | 10/10/2024     | 22/11/2024  | ✔️    | 22/11/2024        |
+
+## Sprint 4
+
+Relatório final (completo)
+Aplicação em produção - hospedagem da solução se possível.
+Atualizar GitHub
+Apresentação Final (power point/PDF+ vídeo estilo Pitch Deck em média 3 minutos)
+
+| Responsável                         | Tarefa/Requisito       | Iniciado em    | Prazo      | Status | Terminado em      |
+| :----                               |    :----               |      :----:    | :----:     | :----: | :----:            |
+| Ana Beatriz Costa Viana             | Github e documentação  | 01/12/2024     | 15/12/2024  | ✔️    | 14/12/2024        |
+| Gustavo de Assis Vilarino           | Bioimpedancia          | 01/12/2024     | 15/12/2024  | ✔️    | 14/12/2024        |
+| Gustavo Henrique Silva de Oliveira  | Alunos                 | 01/12/2024     | 15/12/2024  | ✔️    | 14/12/2024        |
+| Karina Oliveira Bicalho de Almeida  | Planos                 | 01/12/2024     | 15/12/2024  | ✔️    | 14/12/2024        |
 
 Legenda:
 - ✔️: terminado
 - 📝: em execução
 - ⌛: atrasado
 - ❌: não iniciado
-
-
-
-## Links Úteis
-> - [11 Passos Essenciais para Implantar Scrum no seu Projeto](https://mindmaster.com.br/scrum-11-passos/)
-> - [Scrum em 9 minutos](https://www.youtube.com/watch?v=XfvQWnRgxG0)
 
 
