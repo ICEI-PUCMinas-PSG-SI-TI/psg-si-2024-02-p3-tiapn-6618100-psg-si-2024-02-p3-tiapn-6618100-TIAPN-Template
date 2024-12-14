@@ -1,10 +1,5 @@
 ## 3. Modelagem dos Processos de Negócio
 
-
-> **Links Úteis**:
-> - [Modelagem de Processos AS-IS x TO-BE](https://dheka.com.br/modelagem-as-is-to-be/)
-> - [20 Dicas Práticas de Modelagem de Processos](https://dheka.com.br/20-dicas-praticas-de-modelagem-de-processos/)
-
 ### 3.1. Modelagem da situação atual (Modelagem AS IS)
 
 #### Cadastro de alunos: 
@@ -17,6 +12,7 @@ Atualmente, o processo de prospecção de clientes e cadastro de alunos em uma a
 5. Alternativas de Planos: Se nenhum plano disponível atender totalmente às expectativas do aluno, o atendente analisa e tenta encontrar uma opção próxima. Se houver adequação, o processo de cadastro é finalizado.
 6. Encerramento: Caso nenhum plano seja adequado, o atendente encerra o processo sem a efetivação da matrícula.
 
+![AS IS - Cadastro de Aluno](./images/ASIS-CadastroCliente.png)
 
 #### Processo cadastro ficha do aluno:
 
@@ -28,6 +24,8 @@ Atualmente, o processo de cadastrar fichas de alunos em uma academia de ginásti
 5. Cadastrar ficha: O personal trainer arquiva a ficha de treinos do aluno, incluindo os resultados do exame de bioimpedância.
 6. Encerramento: O aluno agora tem acesso à sua ficha de treinos e o processo é finalizado.
 
+![AS IS - Cadastro de Aluno](./images/ASIS-FichaAluno.png)
+
 #### Processo cadastro de profissional:
 
 Atualmente, o processo de cadastrar um profissional em uma academia de ginástica é executado da seguinte forma:
@@ -37,6 +35,8 @@ Atualmente, o processo de cadastrar um profissional em uma academia de ginástic
 4. Contratação: Finalizada a etapa de entrevistas, os profissionais selecionados são contratados.
 5. Cadastro do Profissional: Em uma planilha de funcionários, os dados do profissional são cadastrados - incluindo a unidade em que trabalhará, tipo de contratação (CLT ou PJ)...
 6. Encerramento: O profissional passará a cumprir sua jornada de trabalho na academia de ginástica.
+
+![AS IS - Cadastro de Aluno](./images/ASIS-CadastroProfissional.png)
 
 #### Processo - Bioimpedância
 
@@ -52,6 +52,7 @@ Atualmente, o processo de cadastrar um profissional em uma academia de ginástic
     O profissional de educação física realiza o exame (equipamento de bioimpedância).
 6. O profissional de educação física escreve um relatório com o resultado e fornece um feedback ao cliente.
 
+![AS IS - Cadastro de Aluno](./images/ASIS-Bioimpedancia.png)
 
 ### 3.2. Descrição geral da proposta (Modelagem TO BE)
 
