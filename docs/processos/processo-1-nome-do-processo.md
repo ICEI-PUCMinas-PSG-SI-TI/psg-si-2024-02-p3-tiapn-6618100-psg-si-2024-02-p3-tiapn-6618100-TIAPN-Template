@@ -3,7 +3,7 @@
 #### Cadastro de aluno:
 A solução propõe a introdução de um sistema integrado de gerenciamento de academias que centraliza todas as informações, desde a apresentação de planos até o cadastro de alunos. A utilização dessa tecnologia visa aumentar a eficiência operacional e reduzir os gargalos encontrados no modelo atual (AS IS).
 
-![TO BE - Cadastro de Aluno](docs/images/TOBE-CadastroAluno.png)
+![TO BE - Cadastro de Aluno](../images/TOBE-CadastroAluno.png)
 
 #### Detalhamento das atividades
 
